@@ -1,0 +1,25 @@
+<div class="menu app-menu">
+  {% if perms.libtekin256.view_article %}
+    {% if 'article-' in request.resolver_match.url_name %}
+      <div class="menu-article menu-here">
+        <a href="{% url 'libtekin256:article-list' %}">Articles</a>
+      </div>
+    {% else %}
+      <div class="menu-article">
+        <a href="{% url 'libtekin256:article-list' %}">Articles</a>
+      </div>
+    {% endif %}
+  {% endif %}
+{% if perms.libtekin256.view_mamodel %}
+  {% if 'mamodel' in request.resolver_match.url_name %}
+  <div class="menu-article menu-here">
+        <a href="{% url 'libtekin256:mamodel-list' %}">Models</a>
+      </div>
+    {% else %}
+      <div class="menu-article">
+        <a href="{% url 'libtekin256:mamodel-list' %}">Models</a>
+      </div>
+      {% endif %}
+    {% endif %}
+
+</div>

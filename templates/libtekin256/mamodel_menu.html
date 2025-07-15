@@ -1,0 +1,86 @@
+<div class="menu app-menu">
+
+  <div class="menu object-menu">
+
+    {% if perms.add_mamodel %}
+      {% if 'mamodel-create' == request.resolver_match.url_name %}
+        <div class="menu-mamodel menu-list menu-here">
+            Add New
+        </div>
+      {% else %}
+        <div class="menu-mamodel menu-create">
+          <a href="{% url 'libtekin256:mamodel-create' %}">Add New</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% comment %}
+    {% if perms.view_mamodel %}
+      {% if 'mamodel-list' == request.resolver_match.url_name %}
+        <div class="menu-mamodel menu-list menu-here">
+            List
+        </div>
+      {% else %}
+        <div class="menu-mamodel menu-list">
+          <a href="{% url 'libtekin:mamodel-list' %}">List</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.view_mamodel %}
+      {% if 'mamodel-detail' == request.resolver_match.url_name %}
+        <div class="menu-mamodel menu-detail menu-here">
+            View
+        </div>
+      {% elif object.pk %}
+        <div class="menu-mamodel menu-detail">
+          <a href="{% url 'libtekin:mamodel-detail' object.pk %}">View</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.add_mamodel %}
+      {% if 'mamodel-copy' == request.resolver_match.url_name %}
+        <div class="menu-mamodel menu-detail menu-here">
+            Copy
+        </div>
+      {% elif object.pk %}
+        <div class="menu-mamodel menu-copy">
+          <a href="{% url 'libtekin:mamodel-copy' object.pk %}">Copy</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+
+    {% if perms.change_mamodel %}
+      {% if 'mamodel-update' == request.resolver_match.url_name %}
+        <div class="menu-mamodel menu-update menu-here">
+          <button type="submit" form="form_mamodel" class="menu-mamodel menu-here" >Submit Changes</button>
+        </div>
+      {% elif object.pk %}
+        <div class="menu-mamodel menu-update">
+          <a href="{% url 'libtekin:mamodel-update' object.pk %}">Edit</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.delete_mamodel %}
+      {% if 'mamodel-delete' == request.resolver_match.url_name %}
+        <div class="menu-mamodel menu-delete menu-here">
+          <form method="POST" action="{% url 'libtekin:mamodel-delete' object.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="menu-mamodel" >Confirm Delete</button>
+          </form>
+        </div>
+      {% elif object.pk %}
+        <div class="menu-mamodel menu-delete">
+          <a href="{% url 'libtekin:mamodel-delete' object.pk %}">Delete</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+  {% endcomment %}
+
+  </div>
+
+</div>

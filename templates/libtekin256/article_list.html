@@ -1,0 +1,113 @@
+{% extends './_base.html' %}
+
+{% block content %}
+    {% include './article_menu.html' %}
+
+    {% comment %} filter form {% endcomment %}
+<div id = "div_search_form">
+  <table>
+    <form id="frm_filter" method="POST">
+      {% csrf_token %}
+      {{ filter.form.as_table }}
+      {{ filterstore_save.as_table }}
+      <tr><td>Submit Search</td><td><button type="submit">Search</button></td></tr>
+    </form>
+    <form method="GET" action="{% url 'libtekin256:article-list' %}">
+      {{ filterstore_retrieve.as_table }}
+      <tr><td>Get Saved Filter</td><td><button type="submit">Retrieve</button></td></tr>
+    </form>
+  </table>
+</div>
+<div>
+  <a id="a_showhideSearchForm" href="#"></a>
+</div>
+<script>
+  function showhideSearchForm() {
+    var div_searchForm = document.getElementById("div_search_form")
+    if(div_searchForm.style.display=="none") {
+      div_searchForm.style.display="block"
+      a_showhideSearchForm.innerText="Hide Search Form"
+    } else {
+      div_searchForm.style.display="none"
+      a_showhideSearchForm.innerText="Show Search Form"
+    }
+  }
+  var a_showhideSearchForm = document.getElementById("a_showhideSearchForm")
+  a_showhideSearchForm.addEventListener("click", function(e) {
+    e.preventDefault()
+    showhideSearchForm()
+  })
+  showhideSearchForm()
+</script>
+
+    <h2>Articles</h2>
+    <div class="list" id="div_detail">
+        <table>
+            <tr>
+                <th></th>
+                <th>{{ labels.article.inventory_id }}</th>
+                <th>{{ labels.article.mamodel }}</th>
+                <th>{{ labels.article.common_name }}</th>
+                <th>{{ labels.article.category }}</th>
+                <th>{{ labels.article.status }}</th>
+                <th>{{ labels.article.statusdate }}</th>
+                <th>{{ labels.article.inventorydate }}</th>
+                <th>{{ labels.article.home_location }}</th>
+                <th>{{ labels.article.assignee }}</th>
+                <th>{{ labels.article.customfield01 }}</th>
+                <th>{{ labels.article.customfield02 }}</th>
+                <th>{{ labels.article.customfield03 }}</th>
+                <th>{{ labels.article.customfield04 }}</th>
+                <th>{{ labels.article.customfield05 }}</th>
+                <th>{{ labels.article.customfield06 }}</th>
+                <th>{{ labels.article.customfield07 }}</th>
+                <th>{{ labels.article.customfield08 }}</th>
+                <th>{{ labels.article.customfield09 }}</th>
+                <th>{{ labels.article.customfield10 }}</th>
+                <th>{{ labels.article.customfield11 }}</th>
+                <th>{{ labels.article.customfield12 }}</th>
+                <th>{{ labels.article.customfield13 }}</th>
+                <th>{{ labels.article.customfield14 }}</th>
+                <th>{{ labels.article.customfield15 }}</th>
+                <th>{{ labels.article.customfield16 }}</th>
+
+            </tr>
+            {% for object in filter.qs %}
+                <tr>
+                    <td><a href="{% url 'libtekin256:article-detail' object.pk %}">view</a></td>
+                    <td>{{ object.inventory_id }}</td>
+                    <td>{{ object.mamodel }}</td>
+                    <td>{{ object.common_name }}</td>
+                    <td>{{ object.category }}</td>
+                    <td>{{ object.status }}</td>
+                    <td>{{ object.statusdate }}</td>
+                    <td>{{ object.inventorydate }}</td>
+                    <td>{{ object.home_location }}</td>
+                    <td>{{ object.assignee }}</td>
+                    <td>{{ object.customfield01 }}</td>
+                    <td>{{ object.customfield02 }}</td>
+                    <td>{{ object.customfield03 }}</td>
+                    <td>{{ object.customfield04 }}</td>
+                    <td>{{ object.customfield05 }}</td>
+                    <td>{{ object.customfield06 }}</td>
+                    <td>{{ object.customfield07 }}</td>
+                    <td>{{ object.customfield08 }}</td>
+                    <td>{{ object.customfield09 }}</td>
+                    <td>{{ object.customfield10 }}</td>
+                    <td>{{ object.customfield11 }}</td>
+                    <td>{{ object.customfield12 }}</td>
+                    <td>{{ object.customfield13 }}</td>
+                    <td>{{ object.customfield14 }}</td>
+                    <td>{{ object.customfield15 }}</td>
+                    <td>{{ object.customfield16 }}</td>
+                </tr>
+        {% endfor %}
+        </table>
+    </div>
+    {% include './article_menu.html' %}
+
+{% endblock %}
+{% block bottomscript %}
+{{ block.super }}
+{% endblock %}
+

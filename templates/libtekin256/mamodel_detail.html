@@ -1,0 +1,20 @@
+{% extends './_base.html' %}
+
+{% block content %}
+    {% include './mamodel_menu.html' %}
+    <h2>{{ object }}</h2>
+    <div class="detail" id="div_detail">
+
+            {% include 'touglates/detail_field.html' with field=object.category label=labels.mamodel.category %}
+            {% include 'touglates/detail_field.html' with field=object.brand label=labels.mamodel.brand  %}
+            {% include 'touglates/detail_field.html' with field=object.name label=labels.mamodel.name  %}
+            {% include 'touglates/detail_field.html' with field=object.number label=labels.mamodel.number  %}
+         
+    </div>
+    {% include './mamodel_menu.html' %}
+
+{% endblock %}
+{% block bottomscript %}
+{{ block.super }}
+{% endblock %}
+

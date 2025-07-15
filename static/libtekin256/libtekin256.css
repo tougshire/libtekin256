@@ -1,0 +1,31 @@
+
+@media screen and ( min-width:600px) {
+    .form-field-inner-wrapper {
+        display:flex;
+        margin:auto 1em;
+    }
+    .form-field-inner-wrapper .form-field-label {
+        flex: 0 0 20%
+    }
+    .form-field-inner-wrapper .form-field-control {
+        flex: 0 0 30%;
+    }
+
+    .detail-field-inner-wrapper {
+        display:flex;
+        margin:auto 1em;
+    }
+    .detail-field-inner-wrapper .detail-field-label {
+        flex: 0 0 20%
+    }
+    .detail-field-inner-wrapper .detail-field-control {
+        flex: 0 0 30%;
+    }
+
+    
+}
+
+label.required::after, label.indexTwin::after {
+    content: ' *';
+    color: red;
+}

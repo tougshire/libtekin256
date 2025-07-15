@@ -1,0 +1,86 @@
+<div class="menu app-menu">
+
+  <div class="menu object-menu">
+
+    {% if perms.add_articlenotesubject %}
+      {% if 'articlenotesubject-create' == request.resolver_match.url_name %}
+        <div class="menu-articlenotesubject menu-list menu-here">
+            Add New
+        </div>
+      {% else %}
+        <div class="menu-articlenotesubject menu-create">
+          <a href="{% url 'libtekin256:articlenotesubject-create' %}">Add New</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% comment %}
+    {% if perms.view_articlenotesubject %}
+      {% if 'articlenotesubject-list' == request.resolver_match.url_name %}
+        <div class="menu-articlenotesubject menu-list menu-here">
+            List
+        </div>
+      {% else %}
+        <div class="menu-articlenotesubject menu-list">
+          <a href="{% url 'libtekin:articlenotesubject-list' %}">List</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.view_articlenotesubject %}
+      {% if 'articlenotesubject-detail' == request.resolver_match.url_name %}
+        <div class="menu-articlenotesubject menu-detail menu-here">
+            View
+        </div>
+      {% elif object.pk %}
+        <div class="menu-articlenotesubject menu-detail">
+          <a href="{% url 'libtekin:articlenotesubject-detail' object.pk %}">View</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.add_articlenotesubject %}
+      {% if 'articlenotesubject-copy' == request.resolver_match.url_name %}
+        <div class="menu-articlenotesubject menu-detail menu-here">
+            Copy
+        </div>
+      {% elif object.pk %}
+        <div class="menu-articlenotesubject menu-copy">
+          <a href="{% url 'libtekin:articlenotesubject-copy' object.pk %}">Copy</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+
+    {% if perms.change_articlenotesubject %}
+      {% if 'articlenotesubject-update' == request.resolver_match.url_name %}
+        <div class="menu-articlenotesubject menu-update menu-here">
+          <button type="submit" form="form_articlenotesubject" class="menu-articlenotesubject menu-here" >Submit Changes</button>
+        </div>
+      {% elif object.pk %}
+        <div class="menu-articlenotesubject menu-update">
+          <a href="{% url 'libtekin:articlenotesubject-update' object.pk %}">Edit</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.delete_articlenotesubject %}
+      {% if 'articlenotesubject-delete' == request.resolver_match.url_name %}
+        <div class="menu-articlenotesubject menu-delete menu-here">
+          <form method="POST" action="{% url 'libtekin:articlenotesubject-delete' object.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="menu-articlenotesubject" >Confirm Delete</button>
+          </form>
+        </div>
+      {% elif object.pk %}
+        <div class="menu-articlenotesubject menu-delete">
+          <a href="{% url 'libtekin:articlenotesubject-delete' object.pk %}">Delete</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+  {% endcomment %}
+
+  </div>
+
+</div>
