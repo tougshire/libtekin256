@@ -248,6 +248,8 @@ class ArticleDetailView(PermissionRequiredMixin, DetailView):
 class ArticleDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = "libtekin256.delete_article"
     model = Article
+    def get_success_url(self, *args, **kwargs):
+        return reverse('libtekin256:article-list')
 
 class ArticleListView(PermissionRequiredMixin, FilterView):
 

@@ -77,7 +77,7 @@ class Mamodel(models.Model):
 
 class ArticleCategory(models.Model):
 
-    name = models.CharField("name", help_text="The name of this article category")
+    name = models.CharField("name", max_length=60, help_text="The name of this article category")
 
     def __str__(self):
         return self.name

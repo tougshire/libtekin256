@@ -1,0 +1,44 @@
+{% extends './_base.html' %}
+
+{% block content %}
+    {% include './article_menu.html' %}
+    <h2>{{ Article  }}</h2>
+    <div class="detail" id="div_detail">
+        {% include 'touglates/detail_field.html' with field=object.inventory_id  label=labels.article.inventory_id %}
+        {% include 'touglates/detail_field.html' with field=object.mamodel  label=labels.article.mamodel %}
+        {% include 'touglates/detail_field.html' with field=object.common_name  label=labels.article.common_name %}
+        {% include 'touglates/detail_field.html' with field=object.category  label=labels.article.category %}
+        {% include 'touglates/detail_field.html' with field=object.status  label=labels.article.status %}
+        {% include 'touglates/detail_field.html' with field=object.statusdate  label=labels.article.statusdate %}
+        {% include 'touglates/detail_field.html' with field=object.inventorydate  label=labels.article.inventorydate %}
+        {% include 'touglates/detail_field.html' with field=object.home_location  label=labels.article.home_location %}
+        {% include 'touglates/detail_field.html' with field=object.assignee  label=labels.article.assignee %}
+        {% include 'touglates/detail_field.html' with field=object.customfield01  label=labels.article.customfield01 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield02  label=labels.article.customfield02 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield03  label=labels.article.customfield03 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield04  label=labels.article.customfield04 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield05  label=labels.article.customfield05 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield06  label=labels.article.customfield06 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield07  label=labels.article.customfield07 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield08  label=labels.article.customfield08 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield09  label=labels.article.customfield09 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield10  label=labels.article.customfield10 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield11  label=labels.article.customfield11 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield12  label=labels.article.customfield12 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield13  label=labels.article.customfield13 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield14  label=labels.article.customfield14 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield15  label=labels.article.customfield15 %}
+        {% include 'touglates/detail_field.html' with field=object.customfield16  label=labels.article.customfield16 %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Confirm Delete</button>
+        </form>
+
+    {% include './article_menu.html' %}
+
+{% endblock %}
+{% block bottomscript %}
+{{ block.super }}
+{% endblock %}
+
