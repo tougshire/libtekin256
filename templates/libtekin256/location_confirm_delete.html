@@ -1,0 +1,21 @@
+{% extends './_base.html' %}
+
+{% block content %}
+    {% include './location_menu.html' %}
+    <h2>{{ Location  }}</h2>
+    <div class="detail" id="div_detail">
+        {% include 'touglates/detail_field.html' with field=object.full_name  label=labels.location.full_name %}
+        {% include 'touglates/detail_field.html' with field=object.abbreviation  label=labels.location.abbreviation %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Confirm Delete</button>
+        </form>
+
+    {% include './location_menu.html' %}
+
+{% endblock %}
+{% block bottomscript %}
+{{ block.super }}
+{% endblock %}
+

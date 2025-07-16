@@ -104,6 +104,43 @@ class LocationCreateView(PermissionRequiredMixin, CreateView):
             )
         return reverse_lazy("libtekin256:location-detail", kwargs={"pk": self.object.pk})
 
+class LocationUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = "libtekin.change_location"
+    model = Location
+    form_class = LocationForm
+
+    def get_success_url(self):
+        return reverse_lazy("libtekin256:location-detail", kwargs={"pk": self.object.pk})
+
+class LocationDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = "libtekin.view_location"
+    model = Location
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+
+        context_data["labels"] = {'location':get_pretty_labels(Location)}
+
+        return context_data
+
+class LocationDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = "libtekin256.delete_location"
+    model = Location
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+
+        context_data["labels"] = {'location':get_pretty_labels(Location)}
+
+        return context_data
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse('libtekin256:location-list')
+
+class LocationListView(PermissionRequiredMixin, ListView):
+    permission_required = "libtekin256.view_location"
+    model = Location
+
 
 class ArticleCreateView(PermissionRequiredMixin, CreateView):
     permission_required = "libtekin256.add_article"
@@ -248,6 +285,15 @@ class ArticleDetailView(PermissionRequiredMixin, DetailView):
 class ArticleDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = "libtekin256.delete_article"
     model = Article
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+
+        context_data["labels"] = {'article':get_pretty_labels(Article)}
+
+        return context_data
+
+
     def get_success_url(self, *args, **kwargs):
         return reverse('libtekin256:article-list')
 
@@ -412,8 +458,29 @@ class MamodelDetailView(PermissionRequiredMixin, DetailView):
         context_data["labels"] = {'mamodel':get_pretty_labels(Mamodel)}
 
         return context_data
-    
+
+class MamodelDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = "libtekin256.delete_mamodel"
+    model = Mamodel
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+
+        context_data["labels"] = {'mamodel':get_pretty_labels(Mamodel)}
+
+        return context_data
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse('libtekin256:mamodel-list')
+
 class MamodelListView(PermissionRequiredMixin, ListView):
     permission_required = "libtekin256.view_mamodel"
     model = Mamodel
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+
+        context_data["labels"] = {'mamodel':get_pretty_labels(Mamodel)}
+
+        return context_data
 

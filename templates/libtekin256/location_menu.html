@@ -1,0 +1,67 @@
+<div class="menu app-menu">
+
+  <div class="menu object-menu">
+
+    {% if perms.add_location %}
+      {% if 'location-create' == request.resolver_match.url_name %}
+        <div class="menu-location menu-list menu-here">
+            Add New
+        </div>
+      {% else %}
+        <div class="menu-location menu-create">
+          <a href="{% url 'libtekin256:location-create' %}">Add New</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.view_location %}
+      {% if 'location-list' == request.resolver_match.url_name %}
+        <div class="menu-location menu-list menu-here">
+            List
+        </div>
+      {% else %}
+        <div class="menu-location menu-list">
+          <a href="{% url 'libtekin256:location-list' %}">List</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.view_location %}
+      {% if 'location-detail' == request.resolver_match.url_name %}
+        <div class="menu-location menu-detail menu-here">
+            View
+        </div>
+      {% elif object.pk %}
+        <div class="menu-location menu-detail">
+          <a href="{% url 'libtekin256:location-detail' object.pk %}">View</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.change_location %}
+      {% if 'location-update' == request.resolver_match.url_name %}
+        <div class="menu-location menu-update menu-here">
+          <button type="submit" form="form_location" class="menu-location menu-here" >Submit Changes</button>
+        </div>
+      {% elif object.pk %}
+        <div class="menu-location menu-update">
+          <a href="{% url 'libtekin256:location-update' object.pk %}">Edit</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.delete_location %}
+      {% if 'location-delete' == request.resolver_match.url_name %}
+        <div class="menu-location menu-delete menu-here">
+            Delete
+        </div>
+      {% elif object.pk %}
+        <div class="menu-location menu-delete">
+          <a href="{% url 'libtekin256:location-delete' object.pk %}">Delete</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+  </div>
+
+</div>

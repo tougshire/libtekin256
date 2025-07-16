@@ -55,7 +55,7 @@
     {% if perms.change_mamodelcategory %}
       {% if 'mamodelcategory-update' == request.resolver_match.url_name %}
         <div class="menu-mamodelcategory menu-update menu-here">
-          <button type="submit" form="form_mamodelcategory" class="menu-mamodelcategory menu-here" >Submit Changes</button>
+          Edit
         </div>
       {% elif object.pk %}
         <div class="menu-mamodelcategory menu-update">
@@ -67,10 +67,7 @@
     {% if perms.delete_mamodelcategory %}
       {% if 'mamodelcategory-delete' == request.resolver_match.url_name %}
         <div class="menu-mamodelcategory menu-delete menu-here">
-          <form method="POST" action="{% url 'libtekin:mamodelcategory-delete' object.pk %}">
-            {% csrf_token %}
-            <button type="submit" class="menu-mamodelcategory" >Confirm Delete</button>
-          </form>
+          Delete
         </div>
       {% elif object.pk %}
         <div class="menu-mamodelcategory menu-delete">

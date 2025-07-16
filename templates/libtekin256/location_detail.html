@@ -1,0 +1,18 @@
+{% extends './_base.html' %}
+
+{% block content %}
+    {% include './Location_menu.html' %}
+    <h2>{{ object }}</h2>
+    <div class="detail" id="div_detail">
+
+            {% include 'touglates/detail_field.html' with field=object.full_name label=labels.Location.full_name  %}
+            {% include 'touglates/detail_field.html' with field=object.abbreviation label=labels.Location.abbreviation  %}
+         
+    </div>
+    {% include './Location_menu.html' %}
+
+{% endblock %}
+{% block bottomscript %}
+{{ block.super }}
+{% endblock %}
+

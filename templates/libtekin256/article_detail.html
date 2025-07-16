@@ -45,7 +45,7 @@
     {% if copybutton %}
         <form action="{% url 'libtekin256:article-copy' object.pk %}" method="POST">
             {% csrf_token %}
-            <button type="submit">Copy</button>
+            {% include 'touglates/form_field.html' with field="<button type='submit'>Copy</button>"  label_tag="Confirm Copy" %}            
         </form>
     {% endif %}
     {% include './article_menu.html' %}

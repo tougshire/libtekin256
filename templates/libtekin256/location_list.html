@@ -1,0 +1,30 @@
+{% extends './_base.html' %}
+
+{% block content %}
+    {% include './location_menu.html' %}
+
+    <h2>Locations</h2>
+    <div class="list" id="div_detail">
+        <table>
+            <tr>
+                <th></th>
+                <th>{{ labels.location.full_name }}</th>
+                <th>{{ labels.location.abbreviation }}</th>
+
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td><a href="{% url 'libtekin256:location-detail' object.pk %}">view</a></td>
+                    <td>{{ object.full_name }}</td>
+                    <td>{{ object.abbreviation }}</td>
+                </tr>
+        {% endfor %}
+        </table>
+    </div>
+    {% include './location_menu.html' %}
+
+{% endblock %}
+{% block bottomscript %}
+{{ block.super }}
+{% endblock %}
+

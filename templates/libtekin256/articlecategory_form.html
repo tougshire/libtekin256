@@ -11,7 +11,7 @@
 
             {% include 'touglates/form_field.html' with field=form.name %}
         
-            <button type="Submit">Submit</button>
+            {% include 'touglates/form_field.html' with field="<button type='submit'>Submit</button>"  label_tag="Submit Form %}            
 
         </form>
     </div>

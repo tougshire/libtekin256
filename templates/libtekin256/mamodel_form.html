@@ -15,8 +15,8 @@
             {% include 'touglates/form_field.html' with field=form.number %}
             {% include 'touglates/form_field.html' with field=form.inventory_index_twin %}
          
-        
-            <button type="Submit">Submit</button>
+                {% include 'touglates/form_field.html' with field="<button type='submit'>Submit</button>"  label_tag="Submit Form" %}            
+
 
         </form>
     </div>

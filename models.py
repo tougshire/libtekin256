@@ -21,6 +21,9 @@ class Location(models.Model):
     full_name = models.CharField("name", max_length=80, help_text="The full name of this location")
     abbreviation = models.CharField("abbreviation", max_length=10, blank=True, help_text="An abbreviation of the name")
 
+    def __str__(self):
+        return self.full_name
+
 class MamodelCategory(models.Model):
         
     name = models.CharField("name", max_length=80, help_text="The name of this category for make/models")

@@ -55,7 +55,7 @@
     {% if perms.change_articlecategory %}
       {% if 'articlecategory-update' == request.resolver_match.url_name %}
         <div class="menu-articlecategory menu-update menu-here">
-          <button type="submit" form="form_articlecategory" class="menu-articlecategory menu-here" >Submit Changes</button>
+          Edit
         </div>
       {% elif object.pk %}
         <div class="menu-articlecategory menu-update">
@@ -67,10 +67,7 @@
     {% if perms.delete_articlecategory %}
       {% if 'articlecategory-delete' == request.resolver_match.url_name %}
         <div class="menu-articlecategory menu-delete menu-here">
-          <form method="POST" action="{% url 'libtekin:articlecategory-delete' object.pk %}">
-            {% csrf_token %}
-            <button type="submit" class="menu-articlecategory" >Confirm Delete</button>
-          </form>
+          Delete
         </div>
       {% elif object.pk %}
         <div class="menu-articlecategory menu-delete">

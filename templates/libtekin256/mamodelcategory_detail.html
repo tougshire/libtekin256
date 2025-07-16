@@ -27,7 +27,8 @@
             {% include 'touglates/detail_field.html' with field=form.hide15 %}
             {% include 'touglates/detail_field.html' with field=form.hide16 %}
         
-            <button type="Submit">Submit</button>
+            {% include 'touglates/form_field.html' with field="<button type='submit'>Submit</button>"  label_tag="Submit Form" %}                        
+            
 
         </form>
     </div>
