@@ -14,7 +14,21 @@
     </form>
     <form method="GET" action="{% url 'libtekin256:article-list' %}">
       {{ filterstore_retrieve.as_table }}
-      <tr><td>Get Saved Filter</td><td><button type="submit">Retrieve</button></td></tr>
+      <tr><td>Get Saved Filter</td><td><button type="submit" id="btn_retrieve">Retrieve</button></td></tr>
+      <script>
+        function toggleRetrieve() {
+          var button = document.getElementById("btn_retrieve")
+          var select = document.getElementById("{{ filterstore_retrieve.from_store.id_for_label }}")
+          button.disabled = !(select.value > "")
+          button.style.display = button.disabled ? "none" : ""
+          console.log("tp257h823", button.enabled)
+        }
+        document.getElementById("{{ filterstore_retrieve.from_store.id_for_label }}").addEventListener("change", function() {
+          toggleRetrieve()
+        })
+        toggleRetrieve()
+      </script>
+
     </form>
   </table>
 </div>
