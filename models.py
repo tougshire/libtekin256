@@ -78,9 +78,9 @@ class Mamodel(models.Model):
         return '{} {}'.format(self.brand, name)
     
 
-class ArticleCategory(models.Model):
+class Role(models.Model):
 
-    name = models.CharField("name", max_length=60, help_text="The name of this article category")
+    name = models.CharField("name", max_length=60, help_text="The name of this role")
 
     def __str__(self):
         return self.name
@@ -92,7 +92,7 @@ class Article(models.Model):
 
     inventory_index = models.CharField("index", unique=True, max_length=128)
     mamodel = models.ForeignKey(Mamodel, verbose_name="model", null=True, on_delete=models.SET_NULL, help_text="The make and model of this article")
-    category = models.ForeignKey(ArticleCategory, null=True, blank=True, on_delete=models.SET_NULL, help_text="The category of this article")
+    role = models.ForeignKey(Role, null=True, blank=True, on_delete=models.SET_NULL, help_text="The role of this article")
     status = models.ForeignKey(ArticleStatus, null=True, on_delete=models.SET_NULL, help_text="The status of this article")
     statusdate = models.DateField("status date", null=True, default=date.today, help_text="The date of the current status")
     inventorydate = models.DateField("inventory date", null=True, default=date.today, help_text="The date of the latest confirmation of possetion of this article")
@@ -129,7 +129,7 @@ class Article(models.Model):
         if label in [
             "mamodel",
             "common_name",
-            "category",
+            "role",
             "status",
         ]:
             return getattr(self, label)
@@ -149,7 +149,7 @@ class Article(models.Model):
             article = self,
             inventory_index=self.inventory_index,
             mamodel=self.mamodel,
-            category=self.category,
+            role=self.role,
             common_name=self.common_name,
             status=self.status,
             statusdate=self.statusdate,
@@ -234,7 +234,7 @@ class ArticleSnap(models.Model):
     when = models.DateTimeField("date/time", default=timezone.now )
     inventory_index = models.CharField("unique id", max_length=80, help_text="The unique ID to be used for this system. You'll likely want to use the manufacturer's serial number, your organization's inventory number, or bios number, IMEI, etc..")
     mamodel = models.ForeignKey(Mamodel, verbose_name="model", null=True, on_delete=models.SET_NULL, help_text="The make and model of this article")
-    category = models.ForeignKey(ArticleCategory, null=True, blank=True, on_delete=models.SET_NULL, help_text="The category of this article")
+    role = models.ForeignKey(Role, null=True, blank=True, on_delete=models.SET_NULL, help_text="The role of this article")
     status = models.ForeignKey(ArticleStatus, null=True, on_delete=models.SET_NULL, help_text="The status of this article")
     statusdate = models.DateField("status date", null=True, help_text="The date of the current status")
     inventorydate = models.DateField("status date", null=True, help_text="The date of the current status")

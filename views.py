@@ -10,8 +10,8 @@ from django_filters_stoex.forms import FilterstoreRetrieveForm, FilterstoreSaveF
 from django_filters_stoex.views import FilterView
 from libtekin256.forms import LocationForm
 from libtekin256.filterset import ArticleFilter
-from .models import ArticleCategory, Article, ArticleNoteSubject, ArticleSnap, ArticleStatus, ArticleLink, ArticleNote, Location, Mamodel, MamodelCategory
-from .forms import ArticleForm, ArticleNoteSubjectForm, ArticleSnapForm, ArticleCategoryForm, ArticleLinkForm, ArticleStatusForm, ArticleNoteForm, MamodelForm, MamodelCategoryForm
+from .models import Role, Article, ArticleNoteSubject, ArticleSnap, ArticleStatus, ArticleLink, ArticleNote, Location, Mamodel, MamodelCategory
+from .forms import ArticleForm, ArticleNoteSubjectForm, ArticleSnapForm, RoleForm, ArticleLinkForm, ArticleStatusForm, ArticleNoteForm, MamodelForm, MamodelCategoryForm
 from django.forms.utils import pretty_name
 from django.conf import settings
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -45,10 +45,10 @@ def get_pretty_labels(Model):
 
     return labels
 
-class ArticleCategoryCreateView(PermissionRequiredMixin, CreateView):
-    permission_required = "libtekin256.add_articlecategory"
-    model = ArticleCategory
-    form_class = ArticleCategoryForm
+class RoleCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = "libtekin256.add_role"
+    model = Role
+    form_class = RoleForm
 
     def get_success_url(self):
 
@@ -61,30 +61,30 @@ class ArticleCategoryCreateView(PermissionRequiredMixin, CreateView):
                     "model_name": self.model.__name__,
                 },
             )
-        return reverse_lazy("libtekin256:articlecategory-update", kwargs={"pk": self.object.pk})
+        return reverse_lazy("libtekin256:role-update", kwargs={"pk": self.object.pk})
 
-class ArticleCategoryUpdateView(PermissionRequiredMixin, UpdateView):
-    permission_required = "libtekin256.change_articlecategory"
-    model = ArticleCategory
-    form_class = ArticleCategoryForm
-
-    def get_success_url(self):
-        return reverse_lazy("libtekin256:articlecategory-detail", kwargs={"pk": self.object.pk})
-
-class ArticleCategoryDetailView(PermissionRequiredMixin, DetailView):
-    permission_required = "libtekin256.view_articlecategory"
-    model = ArticleCategory
-
-class ArticleCategoryDeleteView(PermissionRequiredMixin, DeleteView):
-    permission_required = "libtekin256.delete_articlecategory"
-    model = ArticleCategory
+class RoleUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = "libtekin256.change_role"
+    model = Role
+    form_class = RoleForm
 
     def get_success_url(self):
-        return reverse_lazy("libtekin256:articlecategory-list", kwargs={"pk": self.object.pk})
+        return reverse_lazy("libtekin256:role-detail", kwargs={"pk": self.object.pk})
 
-class ArticleCategoryListView(PermissionRequiredMixin, ListView):
-    permission_required = "libtekin256.view_articlecategory"
-    model = ArticleCategory
+class RoleDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = "libtekin256.view_role"
+    model = Role
+
+class RoleDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = "libtekin256.delete_role"
+    model = Role
+
+    def get_success_url(self):
+        return reverse_lazy("libtekin256:role-list", kwargs={"pk": self.object.pk})
+
+class RoleListView(PermissionRequiredMixin, ListView):
+    permission_required = "libtekin256.view_role"
+    model = Role
 
 class LocationCreateView(PermissionRequiredMixin, CreateView):
     permission_required = "libtekin.add_location"
@@ -152,7 +152,7 @@ class ArticleCreateView(PermissionRequiredMixin, CreateView):
         context_data = super().get_context_data(*args, **kwargs)
 
         formsetclasses = {
-            "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=3),
+            "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=2),
             "maintenancenotes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
 
         }
@@ -172,7 +172,7 @@ class ArticleCreateView(PermissionRequiredMixin, CreateView):
         formsets_valid = True
     
         formsetclasses = {
-            "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=3),
+            "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=2),
             "maintenancenotes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
         }
 
@@ -219,7 +219,7 @@ class ArticleUpdateView(PermissionRequiredMixin, UpdateView):
         context_data = super().get_context_data(*args, **kwargs)
 
         formsetclasses = {
-            "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=1),
+            "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=2),
             "maintenancenotes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
         }
 
@@ -239,7 +239,7 @@ class ArticleUpdateView(PermissionRequiredMixin, UpdateView):
         formsets_valid = True
     
         formsetclasses = {
-            "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=1),
+            "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=2),
             "maintenancenotes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
         }
 

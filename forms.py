@@ -2,13 +2,13 @@ from django import forms
 from django.conf import settings
 from django.urls import reverse_lazy
 
-from .models import ArticleCategory, Article, ArticleLink, ArticleNoteSubject, ArticleSnap, ArticleStatus, ArticleNote, Location, Mamodel, MamodelCategory
+from .models import Role, Article, ArticleLink, ArticleNoteSubject, ArticleSnap, ArticleStatus, ArticleNote, Location, Mamodel, MamodelCategory
 
 from touglates.widgets import TouglatesRelatedSelect
 
-class ArticleCategoryForm(forms.ModelForm):
+class RoleForm(forms.ModelForm):
     class Meta:
-        model=ArticleCategory
+        model=Role
         fields=[
             "name",
         ]
@@ -64,7 +64,7 @@ class ArticleForm(forms.ModelForm):
         fields=[
             "mamodel",
             "common_name",
-            "category",
+            "role",
             "status",
             "statusdate",
             "inventorydate",
@@ -97,11 +97,11 @@ class ArticleForm(forms.ModelForm):
                 },
                 add_filter_input=True,
             ),
-            "category":TouglatesRelatedSelect(
+            "role":TouglatesRelatedSelect(
                 related_data={
-                    "model_name": "ArticleCategory",
+                    "model_name": "Role",
                     "app_name": "libtekin256",
-                    "add_url": reverse_lazy("libtekin256:articlecategory-popup"),
+                    "add_url": reverse_lazy("libtekin256:role-popup"),
                 },
             ),
             "home_location":TouglatesRelatedSelect(
@@ -129,7 +129,7 @@ class ArticleSnapForm(forms.ModelForm):
             'when', 
             'mamodel', 
             'common_name', 
-            'category', 
+            'role', 
             'status', 
             'statusdate', 
             'inventorydate',

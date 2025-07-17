@@ -1,7 +1,7 @@
 {% extends './_form.html' %}
 
 {% block content %}
-    {% include './articlecategory_menu.html' %}
+    {% include './role_menu.html' %}
     <h2>{% if object %}{{ object }}{% else %}Article Category{% endif %}</h2>
     <div class="form" id="div_form">
         {{ form.errors }}
@@ -15,7 +15,7 @@
 
         </form>
     </div>
-    {% include './articlecategory_menu.html' %}
+    {% include './role_menu.html' %}
 
 {% endblock %}
 {% block bottomscript %}

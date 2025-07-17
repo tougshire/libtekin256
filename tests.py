@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.conf import settings
 
-from libtekin256.models import Article, ArticleCategory, ArticleStatus, ArticleNote, Mamodel, MamodelCategory
+from libtekin256.models import Article, Role, ArticleStatus, ArticleNote, Mamodel, MamodelCategory
 from libtekin256.forms import ArticleForm, MamodelForm
 
 class ArticleTestCase(TestCase):

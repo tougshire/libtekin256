@@ -2,7 +2,8 @@ import django_filters
 from django_filters_stoex.filterset import StoexFilterSet
 from .models import (
     Article,
-    ArticleCategory,
+    Role,
+    ArticleNoteSubject,
     ArticleStatus,
     Mamodel,
     MamodelCategory
@@ -46,11 +47,11 @@ class ArticleFilter(StoexFilterSet):
         widget=DropdownSelectMultiple(),
     )
 
-    category__in = django_filters.ModelMultipleChoiceFilter(
-        label="Article Category",
+    role__in = django_filters.ModelMultipleChoiceFilter(
+        label="Role",
         field_name="category",
-        queryset=ArticleCategory.objects.all(),
-        help_text="Article Category",
+        queryset=Role.objects.all(),
+        help_text="Role",
         widget=DropdownSelectMultiple(),
     )
 
@@ -62,7 +63,14 @@ class ArticleFilter(StoexFilterSet):
         widget=DropdownSelectMultiple(),
     )
 
-
+    note__in = django_filters.ModelMultipleChoiceFilter(
+        label="Note",
+        field_name="articlenote__subject",
+        queryset=ArticleNoteSubject.objects.all(),
+        help_text="Note",
+        widget=DropdownSelectMultiple(),
+    )
+    
     orderbyfields_available = [
         ("status", "Status"),
         ("mamodel", "Model"),

@@ -37,7 +37,7 @@
         {% endfor %}
 
         <h2>Maintenance Notes</h2>
-        {% for note in object.articlenote_set.all %} tp
+        {% for note in object.articlenote_set.all %} 
             {% include 'touglates/detail_fields.html' with label="Note" field_1=note.when %}
             {% include 'touglates/detail_fields.html' with field_1=note.subject %}
         {% endfor %}
