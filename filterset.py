@@ -22,6 +22,7 @@ class ArticleFilter(StoexFilterSet):
         field_name="common_name, inventory_index, mamodel__brand, mamodel__name, mamodel__number, assignee__fullformalname, assignee__friendlyname, customfield01, customfield02, customfield03, customfield04, customfield05, customfield06, customfield07, customfield08, customfield09, customfield10, customfield11, customfield12, customfield13, customfield14, customfield15, customfield16",
         lookup_expr="icontains",
         help_text="General Text in the Article Record",
+        widget=ClearableTextInput()
     )
     common_name = django_filters.CharFilter(
         label="Common Name",
