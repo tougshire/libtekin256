@@ -2,7 +2,7 @@ from django import forms
 from django.conf import settings
 from django.urls import reverse_lazy
 
-from .models import Role, Article, ArticleLink, ArticleNoteSubject, ArticleSnap, ArticleStatus, ArticleNote, Location, Mamodel, MamodelCategory
+from .models import Role, Article, ArticleLink, ArticleNoteStandardSubject, ArticleSnap, ArticleStatus, ArticleNote, Location, Mamodel, MamodelCategory
 
 from touglates.widgets import TouglatesRelatedSelect
 
@@ -233,9 +233,9 @@ class ArticleLinkForm(forms.ModelForm):
             "url"
         ]
 
-class ArticleNoteSubjectForm(forms.ModelForm):
+class ArticleNoteStandardSubjectForm(forms.ModelForm):
     class Meta:
-        model = ArticleNoteSubject
+        model = ArticleNoteStandardSubject
         fields = [
             "subject_line"
         ]
@@ -246,7 +246,8 @@ class ArticleNoteForm(forms.ModelForm):
         model = ArticleNote
         fields = [
             "article",
-            "subject",
+            "standard_subject",
+            "individual_subject",
             "description",
             "when",
             "is_pinned",
@@ -254,9 +255,9 @@ class ArticleNoteForm(forms.ModelForm):
         widgets = {
             "subject":TouglatesRelatedSelect(
                 related_data={
-                    "model_name": "ArticleNoteSubject",
+                    "model_name": "ArticleNoteStandardSubject",
                     "app_name": "libtekin256",
-                    "add_url": reverse_lazy("libtekin256:articlenotesubject-popup"),
+                    "add_url": reverse_lazy("libtekin256:articlenotestandardsubject-popup"),
                 },
                 add_filter_input=True,
             ),

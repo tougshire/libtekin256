@@ -3,7 +3,7 @@ from django_filters_stoex.filterset import StoexFilterSet
 from .models import (
     Article,
     Role,
-    ArticleNoteSubject,
+    ArticleNoteStandardSubject,
     ArticleStatus,
     Mamodel,
     MamodelCategory
@@ -67,7 +67,7 @@ class ArticleFilter(StoexFilterSet):
     note__in = django_filters.ModelMultipleChoiceFilter(
         label="Note",
         field_name="articlenote__subject",
-        queryset=ArticleNoteSubject.objects.all(),
+        queryset=ArticleNoteStandardSubject.objects.all(),
         help_text="Note",
         widget=DropdownSelectMultiple(),
     )

@@ -10,8 +10,8 @@ from django_filters_stoex.forms import FilterstoreRetrieveForm, FilterstoreSaveF
 from django_filters_stoex.views import FilterView
 from libtekin256.forms import LocationForm
 from libtekin256.filterset import ArticleFilter
-from .models import Role, Article, ArticleNoteSubject, ArticleSnap, ArticleStatus, ArticleLink, ArticleNote, Location, Mamodel, MamodelCategory
-from .forms import ArticleForm, ArticleNoteSubjectForm, ArticleSnapForm, RoleForm, ArticleLinkForm, ArticleStatusForm, ArticleNoteForm, MamodelForm, MamodelCategoryForm
+from .models import Role, Article, ArticleNoteStandardSubject, ArticleSnap, ArticleStatus, ArticleLink, ArticleNote, Location, Mamodel, MamodelCategory
+from .forms import ArticleForm, ArticleNoteStandardSubjectForm, ArticleSnapForm, RoleForm, ArticleLinkForm, ArticleStatusForm, ArticleNoteForm, MamodelForm, MamodelCategoryForm
 from django.forms.utils import pretty_name
 from django.conf import settings
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -346,10 +346,10 @@ class ArticleCopyView(PermissionRequiredMixin, DetailView):
         return context_data
 
 
-class ArticleNoteSubjectCreateView(PermissionRequiredMixin, CreateView):
-    model = ArticleNoteSubject
-    permission_required = "libtekin256.add_articlenotesubject"
-    form_class=ArticleNoteSubjectForm
+class ArticleNoteStandardSubjectCreateView(PermissionRequiredMixin, CreateView):
+    model = ArticleNoteStandardSubject
+    permission_required = "libtekin256.add_articlenotestandardsubject"
+    form_class=ArticleNoteStandardSubjectForm
 
     def get_success_url(self):
 

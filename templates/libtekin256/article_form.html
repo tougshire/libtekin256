@@ -92,7 +92,8 @@
                             {{ hiddenfield }}
                         {% endfor %}
                         <div class="formsetform" style="display:none">
-                            {% include 'touglates/form_field.html' with field=form.subject %}
+                            {% include 'touglates/form_field.html' with field=form.standard_subject %}
+							{% include 'touglates/form_field.html' with field=form.individual_subject %}
                             {% include 'touglates/form_field.html' with field=form.when %}
                             {% include 'touglates/form_field.html' with field=form.description %}
                             {% include 'touglates/form_field.html' with field=form.is_pinned %}
@@ -103,7 +104,8 @@
                             {{ hiddenfield }}
                         {% endfor %}
                         <div class="formsetform">
-                            {% include 'touglates/form_field.html' with field=form.subject %}
+                            {% include 'touglates/form_field.html' with field=form.standard_subject %}
+							{% include 'touglates/form_field.html' with field=form.individual_subject %}
                             {% include 'touglates/form_field.html' with field=form.when %}
                             {% include 'touglates/form_field.html' with field=form.description %}
                             {% include 'touglates/form_field.html' with field=form.is_pinned %}
