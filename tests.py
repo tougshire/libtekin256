@@ -35,7 +35,7 @@ class ArticleNoteTestCase(TestCase):
         gad2025 = Mamodel.objects.create(brand="Tougshire", name="Gad 2025", inventory_index_twin="customfield01")
         self.maingadget=Article.objects.create(mamodel=gad2025, common_name="Main Gadget", inventory_index=test_id )
 
-    def test_maintenancenote_children(self):
+    def test_note_children(self):
         lead_1 = ArticleNote.objects.create(article=self.maingadget, action_taken="Started Something")
         followon_1_1 = ArticleNote.objects.create(article=self.maingadget, action_taken="Worked on Something", lead_note=lead_1)
         followon_1_2 = ArticleNote.objects.create(article=self.maingadget, action_taken="Finished Something", lead_note=lead_1)

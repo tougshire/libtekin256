@@ -207,13 +207,16 @@ class ArticleNote(models.Model):
         return f'{self.when}: { self.subject }'
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if self.when > self.subject.last_used:
-            self.subject.last_used = self.when
-            self.subject.save()
-
+        if self.standard_subject is not None:
+            self.individual_subject = self.standard_subject.subject_line
+            super().save(*args, **kwargs)
+            if self.when > self.standard_subject.last_used:
+                self.standard_subject.last_used = self.when
+                self.standard_subject.save()
+        else:
+            super().save(*args, **kwargs)
+            
     def get_subject(self):
-        print("tp2596638", self.standard_subject.subject_line)
         return self.standard_subject.subject_line if self.standard_subject is not None else self.individual_subject
 
     class Meta:

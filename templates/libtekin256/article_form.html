@@ -72,47 +72,25 @@
 
 
 
-            <h2>Maintenance Notes</h2>
-            {{ maintenancenotes.management_form }}
+            <h2>Notes</h2>
+            {{ notes.management_form }}
 
-            {% for form in maintenancenotes.forms %}
+            {% for form in notes.forms %}
                 <div>
-                    <div>Maintenance Note</div>
-                    {% if form.instance.pk %}
-                        
-                        {% include 'touglates/detail_field.html' with field=form.instance.when %}
-                        {% if form.instance.description %}
-                        {% include 'touglates/detail_field.html' with field=form.instance.description %}
-                        {% endif %}
-                        {% if form.instance.action_taken %}
-                            {% include 'touglates/detail_fields.html' with field=form.instance.action_taken %}
-                        {% endif %}
-                        {% include 'touglates/detail_fields.html' with field="<button type='button'>edit</button>"|safe %}
-                        {% for hiddenfield in form.hidden_fields %}
-                            {{ hiddenfield }}
-                        {% endfor %}
-                        <div class="formsetform" style="display:none">
-                            {% include 'touglates/form_field.html' with field=form.standard_subject %}
-							{% include 'touglates/form_field.html' with field=form.individual_subject %}
-                            {% include 'touglates/form_field.html' with field=form.when %}
-                            {% include 'touglates/form_field.html' with field=form.description %}
-                            {% include 'touglates/form_field.html' with field=form.is_pinned %}
-                            {% include 'touglates/form_field.html' with field=form.DELETE %}
-                        </div>
-                    {% else %}
-                        {% for hiddenfield in form.hidden_fields %}
-                            {{ hiddenfield }}
-                        {% endfor %}
-                        <div class="formsetform">
-                            {% include 'touglates/form_field.html' with field=form.standard_subject %}
-							{% include 'touglates/form_field.html' with field=form.individual_subject %}
-                            {% include 'touglates/form_field.html' with field=form.when %}
-                            {% include 'touglates/form_field.html' with field=form.description %}
-                            {% include 'touglates/form_field.html' with field=form.is_pinned %}
-                            {% include 'touglates/form_field.html' with field=form.DELETE %}
-                        </div>
-                    {% endif %}
-                </div>
+                    <div>Note</div>
+                       
+				   {% for hiddenfield in form.hidden_fields %}
+						{{ hiddenfield }}
+					{% endfor %}
+					<div class="formsetform">
+						{% include 'touglates/form_field.html' with field=form.when %}
+						{% include 'touglates/form_field.html' with field=form.standard_subject %}
+						{% include 'touglates/form_field.html' with field=form.individual_subject %}
+						{% include 'touglates/form_field.html' with field=form.description %}
+						{% include 'touglates/form_field.html' with field=form.is_pinned %}
+						{% include 'touglates/form_field.html' with field=form.DELETE %}
+					</div>
+               </div>
             {% endfor %}
 
             {% include 'touglates/form_field.html' with field="<button type='submit'>Submit</button>"  label_tag="Submit Form" %}            
@@ -197,7 +175,9 @@
 			}
 			else {
 				individualsubject.disabled=false
-				individualsubject.value=individualsubject.dataset.restoreval
+				if(individualsubject.dataset.restoreval) {
+					individualsubject.value=individualsubject.dataset.restoreval
+				}
 			}
 		}
 	}

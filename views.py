@@ -153,7 +153,7 @@ class ArticleCreateView(PermissionRequiredMixin, CreateView):
 
         formsetclasses = {
             "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=2),
-            "maintenancenotes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
+            "notes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
 
         }
 
@@ -173,7 +173,7 @@ class ArticleCreateView(PermissionRequiredMixin, CreateView):
     
         formsetclasses = {
             "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=2),
-            "maintenancenotes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
+            "notes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
         }
 
         formsets={}
@@ -220,7 +220,7 @@ class ArticleUpdateView(PermissionRequiredMixin, UpdateView):
 
         formsetclasses = {
             "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=2),
-            "maintenancenotes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
+            "notes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
         }
 
         for formsetclass in formsetclasses:
@@ -240,7 +240,7 @@ class ArticleUpdateView(PermissionRequiredMixin, UpdateView):
     
         formsetclasses = {
             "articlelinks": inlineformset_factory(Article, ArticleLink, ArticleLinkForm, extra=2),
-            "maintenancenotes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
+            "notes": inlineformset_factory(Article, ArticleNote, ArticleNoteForm, extra=1)
         }
 
         formsets={}
@@ -276,7 +276,7 @@ class ArticleDetailView(PermissionRequiredMixin, DetailView):
         context_data["labels"] = {
             'article':get_pretty_labels(Article),
             'articlelink':get_pretty_labels(ArticleLink),
-            'maintenancenote':get_pretty_labels(ArticleNote)
+            'note':get_pretty_labels(ArticleNote)
         }
 
       
@@ -338,7 +338,7 @@ class ArticleCopyView(PermissionRequiredMixin, DetailView):
         context_data["labels"] = {
             'article':get_pretty_labels(Article),
             'articlelink':get_pretty_labels(ArticleLink),
-            'maintenancenote':get_pretty_labels(ArticleNote)
+            'note':get_pretty_labels(ArticleNote)
         }
 
         context_data["copybutton"] = True  
