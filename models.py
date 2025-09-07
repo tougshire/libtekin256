@@ -1,7 +1,6 @@
-import uuid
 from datetime import date
 from django.utils import timezone
-from django.db import IntegrityError, models
+from django.db import  models
 from django.conf import settings
 from libstaff256.models import Entity
     
