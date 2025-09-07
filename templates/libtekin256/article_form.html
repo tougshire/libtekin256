@@ -165,7 +165,9 @@
         if(twin!=null) {
             twin.required=true
             var label = document.querySelector("label[for='" + twin.id + "']")
-            label.classList.add("indexTwin")
+            if(label!==null) {
+				label.classList.add("indexTwin")
+			}
         }
     }
     document.getElementById("form_article").addEventListener("change", function(e) {
@@ -183,5 +185,29 @@
         })
     }
 </script>
+<script>
+	function enabledisablesubjects() {
+		standardsubjects=document.querySelectorAll("select[name$='standard_subject']")
+		for(standardsubject of standardsubjects) {
+			individualsubject=document.getElementById(standardsubject.id.replace("standard", "individual"))
+			if(standardsubject.value > "") {
+				individualsubject.disabled=true
+				individualsubject.dataset.restoreval=individualsubject.value
+				individualsubject.value=""	
+			}
+			else {
+				individualsubject.disabled=false
+				individualsubject.value=individualsubject.dataset.restoreval
+			}
+		}
+	}
+	document.addEventListener("change", function(e) {
+		elid = e.target.id
+		if( elid.substring(elid.length - 16) == "standard_subject") {
+			enabledisablesubjects()
+		} 
+	})
+	window.addEventListener("load", enabledisablesubjects())
+	</script>
 {% endblock %}
 

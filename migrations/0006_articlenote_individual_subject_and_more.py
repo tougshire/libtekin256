@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='articlenote',
             name='individual_subject',
-            field=models.CharField(blank=True, help_text='The individual subject of this note. Should be filled in if standard subject is not used', max_length=255, verbose_name='description'),
+            field=models.CharField(blank=True, help_text='The individual subject of this note. Should be filled in if standard subject is not used', max_length=255, verbose_name='individual subject'),
         ),
         migrations.AlterField(
             model_name='articlenote',

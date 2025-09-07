@@ -197,7 +197,7 @@ class ArticleNote(models.Model):
 
     article = models.ForeignKey(Article, blank=True, null=True, on_delete=models.SET_NULL)
     standard_subject = models.ForeignKey(ArticleNoteStandardSubject, verbose_name="standard subject", blank=True, null=True, on_delete=models.CASCADE, help_text="The standard subject of this note, if a standard subject is used", related_name="children")
-    individual_subject = models.CharField("description", max_length=255, blank=True, help_text="The individual subject of this note. Should be filled in if standard subject is not used")
+    individual_subject = models.CharField("individual subject", max_length=255, blank=True, help_text="The individual subject of this note. Should be filled in if standard subject is not used")
     description = models.CharField("description", max_length=255, blank=True, help_text="The description of the note, if appropriate")
     when = models.DateTimeField("date/time", default=timezone.now, help_text="The time that the event occured or the action was taken if appliable, or the time that this note was made")
     is_pinned = models.BooleanField("pinned", default=False, help_text="If this note is both current and important - for examples: for example, if the article is under watch due to problems, has a special condition or feature, is on loan, etc..")
@@ -211,6 +211,10 @@ class ArticleNote(models.Model):
         if self.when > self.subject.last_used:
             self.subject.last_used = self.when
             self.subject.save()
+
+    def get_subject(self):
+        print("tp2596638", self.standard_subject.subject_line)
+        return self.standard_subject.subject_line if self.standard_subject is not None else self.individual_subject
 
     class Meta:
         ordering=('-when',)

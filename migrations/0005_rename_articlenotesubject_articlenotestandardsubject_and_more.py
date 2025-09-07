@@ -15,13 +15,9 @@ class Migration(migrations.Migration):
             old_name='ArticleNoteSubject',
             new_name='ArticleNoteStandardSubject',
         ),
-        migrations.RemoveField(
+        migrations.RenameField(
             model_name='articlenote',
-            name='subject',
-        ),
-        migrations.AddField(
-            model_name='articlenote',
-            name='standard_subject',
-            field=models.ForeignKey(blank=True, help_text='The subject of this note', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='children', to='libtekin256.articlenotestandardsubject', verbose_name='standard subject'),
+            old_name='subject',
+            new_name='standard_subject',
         ),
     ]

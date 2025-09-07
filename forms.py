@@ -253,7 +253,7 @@ class ArticleNoteForm(forms.ModelForm):
             "is_pinned",
         ]
         widgets = {
-            "subject":TouglatesRelatedSelect(
+            "standard_subject":TouglatesRelatedSelect(
                 related_data={
                     "model_name": "ArticleNoteStandardSubject",
                     "app_name": "libtekin256",
@@ -261,7 +261,8 @@ class ArticleNoteForm(forms.ModelForm):
                 },
                 add_filter_input=True,
             ),
-            "description":forms.TextInput(attrs={"class":"wide"}),
+            "individual_subject":forms.TextInput(attrs={"class":"widthlong"}),
+            "description":forms.TextInput(attrs={"class":"widthlong"}),
             "when":forms.DateTimeInput(attrs={"input_type":"datetime-local"})
         }
     
