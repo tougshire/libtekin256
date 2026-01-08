@@ -4,11 +4,11 @@
 
     {% if perms.add_article %}
       {% if 'article-create' == request.resolver_match.url_name %}
-        <div class="menu-article menu-list menu-here">
+        <div class="menu-item menu-list menu-here">
             Add New
         </div>
       {% else %}
-        <div class="menu-article menu-create">
+        <div class="menu-item menu-create">
           <a href="{% url 'libtekin256:article-create' %}">Add New</a>
         </div>
       {% endif %}
@@ -16,11 +16,11 @@
 
     {% if perms.view_article %}
       {% if 'article-list' == request.resolver_match.url_name %}
-        <div class="menu-article menu-list menu-here">
+        <div class="menu-item menu-list menu-here">
             List
         </div>
       {% else %}
-        <div class="menu-article menu-list">
+        <div class="menu-item menu-list">
           <a href="{% url 'libtekin256:article-list' %}">List</a>
         </div>
       {% endif %}
@@ -28,11 +28,11 @@
 
     {% if perms.view_article %}
       {% if 'article-detail' == request.resolver_match.url_name %}
-        <div class="menu-article menu-detail menu-here">
+        <div class="menu-item menu-detail menu-here">
             View
         </div>
       {% elif object.pk %}
-        <div class="menu-article menu-detail">
+        <div class="menu-item menu-detail">
           <a href="{% url 'libtekin256:article-detail' object.pk %}">View</a>
         </div>
       {% endif %}
@@ -40,11 +40,11 @@
 
     {% if perms.add_article %}
       {% if 'article-copy' == request.resolver_match.url_name %}
-        <div class="menu-article menu-detail menu-here">
+        <div class="menu-item menu-detail menu-here">
             Copy
         </div>
       {% elif object.pk %}
-        <div class="menu-article menu-copy">
+        <div class="menu-item menu-copy">
           <a href="{% url 'libtekin256:article-copy' object.pk %}">Copy</a>
         </div>
       {% endif %}
@@ -52,11 +52,11 @@
 
     {% if perms.change_article %}
       {% if 'article-update' == request.resolver_match.url_name %}
-        <div class="menu-article menu-update menu-here">
+        <div class="menu-item menu-update menu-here">
           Edit
         </div>
       {% elif object.pk %}
-        <div class="menu-article menu-update">
+        <div class="menu-item menu-update">
           <a href="{% url 'libtekin256:article-update' object.pk %}">Edit</a>
         </div>
       {% endif %}
@@ -64,11 +64,11 @@
 
     {% if perms.delete_article %}
       {% if 'article-delete' == request.resolver_match.url_name %}
-        <div class="menu-article menu-delete menu-here">
+        <div class="menu-item menu-delete menu-here">
           Delete
         </div>
       {% elif object.pk %}
-        <div class="menu-article menu-delete">
+        <div class="menu-item menu-delete">
           <a href="{% url 'libtekin256:article-delete' object.pk %}">Delete</a>
         </div>
       {% endif %}
