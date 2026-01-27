@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 
 from .models import Role, Article, ArticleLink, ArticleNoteStandardSubject, ArticleSnap, ArticleStatus, ArticleNote, Location, Mamodel, MamodelCategory
 
-from touglates.widgets import TouglatesRelatedSelect
+from touglates.widgets import TouglatesDateInput, TouglatesRelatedSelect
 
 class RoleForm(forms.ModelForm):
     class Meta:
@@ -117,7 +117,9 @@ class ArticleForm(forms.ModelForm):
                     "app_name": "libstaff256",
                     "add_url": reverse_lazy("libstaff256:entity-popup"),
                 },
-            )
+            ),
+            "statusdate":TouglatesDateInput(),
+            "inventorydate":TouglatesDateInput(),
 
         }
 
