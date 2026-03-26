@@ -84,8 +84,9 @@
 					{% endfor %}
 					<div class="formsetform">
 						{% include 'touglates/form_field.html' with field=form.when %}
-						{% include 'touglates/form_field.html' with field=form.standard_subject %}
-						{% include 'touglates/form_field.html' with field=form.individual_subject %}
+						{% include 'touglates/form_field.html' with field=form.subject %}
+            {% include 'touglates/form_field.html' with field="Add a new subject if no existing subjects are approprate" %}
+						{% include 'touglates/form_field.html' with field=form.summary %}
 						{% include 'touglates/form_field.html' with field=form.description %}
 						{% include 'touglates/form_field.html' with field=form.is_pinned %}
 						{% include 'touglates/form_field.html' with field=form.DELETE %}
@@ -165,10 +166,10 @@
 </script>
 <script>
 	function enabledisablesubjects() {
-		standardsubjects=document.querySelectorAll("select[name$='standard_subject']")
-		for(standardsubject of standardsubjects) {
-			individualsubject=document.getElementById(standardsubject.id.replace("standard", "individual"))
-			if(standardsubject.value > "") {
+		subjects=document.querySelectorAll("select[name$='subject']")
+		for(subject of subjects) {
+			individualsubject=document.getElementById(subject.id.replace("standard", "individual"))
+			if(subject.value > "") {
 				individualsubject.disabled=true
 				individualsubject.dataset.restoreval=individualsubject.value
 				individualsubject.value=""	
@@ -183,7 +184,7 @@
 	}
 	document.addEventListener("change", function(e) {
 		elid = e.target.id
-		if( elid.substring(elid.length - 16) == "standard_subject") {
+		if( elid.substring(elid.length - 16) == "subject") {
 			enabledisablesubjects()
 		} 
 	})

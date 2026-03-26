@@ -180,7 +180,7 @@ class Article(models.Model):
         ordering = ("mamodel", "common_name",)
 
 
-class ArticleNoteStandardSubject(models.Model):
+class ArticleNoteSubject(models.Model):
     subject_line = models.CharField("subject", max_length=63, help_text="The subject of the note")    
     last_used = models.DateTimeField("date/time", default=timezone.now, help_text="The date of the most recent note")
 
@@ -195,8 +195,8 @@ class ArticleNote(models.Model):
     lead_note_limit_choices_to={"lead_note__isnull":True}
 
     article = models.ForeignKey(Article, blank=True, null=True, on_delete=models.SET_NULL)
-    standard_subject = models.ForeignKey(ArticleNoteStandardSubject, verbose_name="standard subject", blank=True, null=True, on_delete=models.CASCADE, help_text="The standard subject of this note, if a standard subject is used", related_name="children")
-    individual_subject = models.CharField("individual subject", max_length=255, blank=True, help_text="The individual subject of this note. Should be filled in if standard subject is not used")
+    subject = models.ForeignKey(ArticleNoteSubject, verbose_name="subject", blank=True, null=True, on_delete=models.CASCADE, help_text="The standard subject of this note, if a standard subject is used", related_name="children")
+    summary = models.CharField("summary", max_length=255, blank=True, help_text="A summary - like a subject line but with more detail than the available subjects in the drop down list")
     description = models.CharField("description", max_length=255, blank=True, help_text="The description of the note, if appropriate")
     when = models.DateTimeField("date/time", default=timezone.now, help_text="The time that the event occured or the action was taken if appliable, or the time that this note was made")
     is_pinned = models.BooleanField("pinned", default=False, help_text="If this note is both current and important - for examples: for example, if the article is under watch due to problems, has a special condition or feature, is on loan, etc..")
@@ -206,17 +206,17 @@ class ArticleNote(models.Model):
         return f'{self.when}: { self.subject }'
 
     def save(self, *args, **kwargs):
-        if self.standard_subject is not None:
-            self.individual_subject = self.standard_subject.subject_line
+        if self.subject is not None:
+            self.summary = self.subject.subject_line
             super().save(*args, **kwargs)
-            if self.when > self.standard_subject.last_used:
-                self.standard_subject.last_used = self.when
-                self.standard_subject.save()
+            if self.when > self.subject.last_used:
+                self.subject.last_used = self.when
+                self.subject.save()
         else:
             super().save(*args, **kwargs)
             
     def get_subject(self):
-        return self.standard_subject.subject_line if self.standard_subject is not None else self.individual_subject
+        return self.subject.subject_line if self.subject is not None else self.summary
 
     class Meta:
         ordering=('-when',)

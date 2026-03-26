@@ -2,7 +2,7 @@ from django import forms
 from django.conf import settings
 from django.urls import reverse_lazy
 
-from .models import Role, Article, ArticleLink, ArticleNoteStandardSubject, ArticleSnap, ArticleStatus, ArticleNote, Location, Mamodel, MamodelCategory
+from .models import Role, Article, ArticleLink, ArticleNoteSubject, ArticleSnap, ArticleStatus, ArticleNote, Location, Mamodel, MamodelCategory
 
 from touglates.widgets import TouglatesDateInput, TouglatesRelatedSelect
 
@@ -235,9 +235,9 @@ class ArticleLinkForm(forms.ModelForm):
             "url"
         ]
 
-class ArticleNoteStandardSubjectForm(forms.ModelForm):
+class ArticleNoteSubjectForm(forms.ModelForm):
     class Meta:
-        model = ArticleNoteStandardSubject
+        model = ArticleNoteSubject
         fields = [
             "subject_line"
         ]
@@ -248,22 +248,22 @@ class ArticleNoteForm(forms.ModelForm):
         model = ArticleNote
         fields = [
             "article",
-            "standard_subject",
-            "individual_subject",
+            "subject",
+            "summary",
             "description",
             "when",
             "is_pinned",
         ]
         widgets = {
-            "standard_subject":TouglatesRelatedSelect(
+            "subject":TouglatesRelatedSelect(
                 related_data={
-                    "model_name": "ArticleNoteStandardSubject",
+                    "model_name": "ArticleNoteSubject",
                     "app_name": "libtekin256",
-                    "add_url": reverse_lazy("libtekin256:articlenotestandardsubject-popup"),
+                    "add_url": reverse_lazy("libtekin256:articlenotesubject-popup"),
                 },
                 add_filter_input=True,
             ),
-            "individual_subject":forms.TextInput(attrs={"class":"widthlong"}),
+            "summary":forms.TextInput(attrs={"class":"widthlong"}),
             "description":forms.TextInput(attrs={"class":"widthlong"}),
             "when":forms.DateTimeInput(attrs={"input_type":"datetime-local"})
         }
