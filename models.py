@@ -188,7 +188,7 @@ class ArticleNoteSubject(models.Model):
         return self.subject_line
 
     class Meta:
-        ordering=('last_used',)
+        ordering=('-last_used',)
 
 class ArticleNote(models.Model):
 
@@ -198,8 +198,9 @@ class ArticleNote(models.Model):
     subject = models.ForeignKey(ArticleNoteSubject, verbose_name="subject", blank=True, null=True, on_delete=models.CASCADE, help_text="The standard subject of this note, if a standard subject is used", related_name="children")
     summary = models.CharField("summary", max_length=255, blank=True, help_text="A summary - like a subject line but with more detail than the available subjects in the drop down list")
     description = models.CharField("description", max_length=255, blank=True, help_text="The description of the note, if appropriate")
-    when = models.DateTimeField("date/time", default=timezone.now, help_text="The time that the event occured or the action was taken if appliable, or the time that this note was made")
-    is_pinned = models.BooleanField("pinned", default=False, help_text="If this note is both current and important - for examples: for example, if the article is under watch due to problems, has a special condition or feature, is on loan, etc..")
+    when = models.DateField("date", default=date.today, help_text="The date that the event occured or the action was taken if appliable, or the date that this note was made")
+    updated_at = models.DateTimeField("updated_at", auto_now=True, help_text="The date this note was upated.  Used for sorting")
+    is_pinned = models.BooleanField("pinned", default=False, help_text="If this note is both current and important - for examples: if the article is under watch due to problems, has a special condition or feature, is on loan, etc..")
 
     
     def __str__(self):
@@ -219,7 +220,7 @@ class ArticleNote(models.Model):
         return self.subject.subject_line if self.subject is not None else self.summary
 
     class Meta:
-        ordering=('-when',)
+        ordering=('-when','-updated_at')
 
 class ArticleLink(models.Model):
 
