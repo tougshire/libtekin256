@@ -1,0 +1,68 @@
+<div class="menu app-menu">
+
+  <div class="menu object-menu">
+
+    {% if perms.add_articlenote %}
+      {% if 'articlenote-create' == request.resolver_match.url_name %}
+        <div class="menu-item menu-list menu-here">
+            Add New
+        </div>
+      {% else %}
+        <div class="menu-item menu-create">
+          <a href="{% url 'libtekin256:articlenote-create' %}">Add New</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.view_articlenote %}
+      {% if 'articlenote-list' == request.resolver_match.url_name %}
+        <div class="menu-item menu-list menu-here">
+            List
+        </div>
+      {% else %}
+        <div class="menu-item menu-list">
+          <a href="{% url 'libtekin256:articlenote-list' %}">List</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.view_articlenote %}
+      {% if 'articlenote-detail' == request.resolver_match.url_name %}
+        <div class="menu-item menu-detail menu-here">
+            View
+        </div>
+      {% elif object.pk %}
+        <div class="menu-item menu-detail">
+          <a href="{% url 'libtekin256:articlenote-detail' object.pk %}">View</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+
+    {% if perms.change_articlenote %}
+      {% if 'articlenote-update' == request.resolver_match.url_name %}
+        <div class="menu-item menu-update menu-here">
+          Edit
+        </div>
+      {% elif object.pk %}
+        <div class="menu-item menu-update">
+          <a href="{% url 'libtekin256:articlenote-update' object.pk %}">Edit</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if perms.delete_articlenote %}
+      {% if 'articlenote-delete' == request.resolver_match.url_name %}
+        <div class="menu-item menu-delete menu-here">
+          Delete
+        </div>
+      {% elif object.pk %}
+        <div class="menu-item menu-delete">
+          <a href="{% url 'libtekin256:articlenote-delete' object.pk %}">Delete</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
+  </div>
+
+</div>

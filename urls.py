@@ -33,8 +33,13 @@ urlpatterns = [
     # path("modelcategorylist/", views.MamodelCategoryListView.as_view(), name="mamodelcategory-list"),
     path("modelcategorypopup/", views.MamodelCategoryCreateView.as_view(), name="mamodelcategory-popup"),
     path("articlenotestandardsubject/create/", views.ArticleNoteSubjectCreateView.as_view(), name="articlenotesubject-create"),
-    path("articlenotesubject/popup/", views.ArticleNoteSubjectCreateView.as_view(), name="articlenotesubject-popup")
-
-
+    path("articlenotesubject/popup/", views.ArticleNoteSubjectCreateView.as_view(), name="articlenotesubject-popup"),
+    path("articlenote/create/", views.ArticleNoteCreateView.as_view(), name="articlenote-create"),
+    path("articlenote/update/<int:pk>/", views.ArticleNoteUpdateView.as_view(), name="articlenote-update"),
+    path("articlenote/<int:pk>/", views.ArticleNoteDetailView.as_view(), name="articlenote-detail"),
+    path("articlenote/delete/<int:pk>/", views.ArticleNoteDeleteView.as_view(), name="articlenote-delete"),
+    path("articlenotes/", views.ArticleNoteListView.as_view(), name="articlenote-list"),
+    path("articlenote/popup/", views.ArticleNoteCreateView.as_view(), name="articlenote-popup"),
+    path("articlenote/filterstore/<int:from_store>/",views.ArticleNoteListView.as_view(), name="articlenote-filterstore"),
 
 ]

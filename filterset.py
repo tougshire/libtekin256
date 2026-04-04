@@ -2,6 +2,7 @@ import django_filters
 from django_filters_stoex.filterset import StoexFilterSet
 from .models import (
     Article,
+    ArticleNote,
     Role,
     ArticleNoteSubject,
     ArticleStatus,
@@ -85,4 +86,48 @@ class ArticleFilter(StoexFilterSet):
         model = Article
         fields = []
 
+
+
+class ArticleNoteFilter(StoexFilterSet):
+
+    subject__in = django_filters.ModelMultipleChoiceFilter(
+        label="Subject",
+        field_name="subject",
+        queryset=ArticleNoteSubject.objects.all(),
+        help_text="Subject",
+        widget=DropdownSelectMultiple(),
+    )
+
+    article = django_filters.ModelMultipleChoiceFilter(
+        label="Article",
+        field_name="article",
+        queryset=Article.objects.all(),
+        help_text="Article",
+        widget=DropdownSelectMultiple(),
+    )
+
+    mamodel = django_filters.ModelMultipleChoiceFilter(
+        label="Model",
+        field_name="article__mamodel",
+        queryset=Mamodel.objects.all(),
+        help_text="Model",
+        widget=DropdownSelectMultiple(),
+    )
+
+    is_pinned = django_filters.BooleanFilter(
+        label="Pinned",
+        field_name="is_pinned",
+        help_text="Is pinned"
+    )
+
+    orderbyfields_available = [
+        ("when", "Date"),
+        ("is_pinned", "Pinned"),
+    ]
+    orderbyfields = ChainableOrderingFilter(fields=orderbyfields_available)
+    orderbyfields1 = ChainableOrderingFilter(fields=orderbyfields_available)
+
+    class Meta:
+        model = ArticleNote
+        fields = []
 

@@ -1,0 +1,88 @@
+{% extends './_base.html' %}
+
+{% block content %}
+  {% include './articlenote_menu.html' %}
+  {% comment %} filter form {% endcomment %}
+  <div id = "div_search_form">
+    <form id="frm_filter" method="POST">
+      {% csrf_token %}
+      <table>
+        {{ filter.form.as_table }}
+        {{ filterstore_save.as_table }}
+        <tr><td>Submit Search</td><td><button type="submit">Search</button></td></tr>
+      </table>
+    </form>
+    <form method="GET" action="{% url 'libtekin256:articlenote-list' %}">
+      <table>
+        {{ filterstore_retrieve.as_table }}
+        <tr><td>Get Saved Filter</td><td><button type="submit" id="btn_retrieve">Retrieve</button></td></tr>
+        <script>
+          function toggleRetrieve() {
+            var button = document.getElementById("btn_retrieve")
+            var select = document.getElementById("{{ filterstore_retrieve.from_store.id_for_label }}")
+            button.disabled = !(select.value > "")
+            button.style.display = button.disabled ? "none" : ""
+          }
+          document.getElementById("{{ filterstore_retrieve.from_store.id_for_label }}").addEventListener("change", function() {
+            toggleRetrieve()
+          })
+          toggleRetrieve()
+        </script>
+      </table>
+    </form>
+  </div>
+  <div>
+    <a id="a_showhideSearchForm" href="#"></a>
+  </div>
+  <script>
+    function showhideSearchForm() {
+      var div_searchForm = document.getElementById("div_search_form")
+      if(div_searchForm.style.display=="none") {
+        div_searchForm.style.display="block"
+        a_showhideSearchForm.innerText="Hide Search Form"
+      } else {
+        div_searchForm.style.display="none"
+        a_showhideSearchForm.innerText="Show Search Form"
+      }
+    }
+    var a_showhideSearchForm = document.getElementById("a_showhideSearchForm")
+    a_showhideSearchForm.addEventListener("click", function(e) {
+      e.preventDefault()
+      showhideSearchForm()
+    })
+    showhideSearchForm()
+  </script>
+
+  <h2>Notes</h2>
+  <div class="list" id="div_detail">
+    <table>
+      <tr>
+        <th></th>
+        <th>{{ labels.articlenote.when }}</th>
+        <th>{{ labels.articlenote.subject }}</th>
+        <th>{{ labels.articlenote.summary }}</th>
+        <th>{{ labels.articlenote.description }}</th>
+        <th>{{ labels.articlenote.article }}</th>
+        <th>{{ labels.articlenote.is_pinned }}</th>
+
+      </tr>
+      {% for object in filter.qs %}
+        <tr>
+          <td><a href="{% url 'libtekin256:articlenote-detail' object.pk %}">view</a></td>
+          <td>{{ object.when }}</td>
+          <td>{{ object.subject }}</td>
+          <td>{{ object.summary }}</td>
+          <td>{{ object.description }}</td>
+          <td>{{ object.article }}</td>
+          <td>{{ object.is_pinned }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% include './articlenote_menu.html' %}
+
+{% endblock %}
+{% block bottomscript %}
+{{ block.super }}
+{% endblock %}
+

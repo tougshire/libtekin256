@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django_filters_stoex.forms import FilterstoreRetrieveForm, FilterstoreSaveForm
 from django_filters_stoex.views import FilterView
 from libtekin256.forms import LocationForm
-from libtekin256.filterset import ArticleFilter
+from libtekin256.filterset import ArticleFilter, ArticleNoteFilter
 from .models import Role, Article, ArticleNoteSubject, ArticleSnap, ArticleStatus, ArticleLink, ArticleNote, Location, Mamodel, MamodelCategory
 from .forms import ArticleForm, ArticleNoteSubjectForm, ArticleSnapForm, RoleForm, ArticleLinkForm, ArticleStatusForm, ArticleNoteForm, MamodelForm, MamodelCategoryForm
 from django.forms.utils import pretty_name
@@ -481,6 +481,74 @@ class MamodelListView(PermissionRequiredMixin, ListView):
         context_data = super().get_context_data(**kwargs)
 
         context_data["labels"] = {'mamodel':get_pretty_labels(Mamodel)}
+
+        return context_data
+
+
+
+class ArticleNoteCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = "libtekin256.add_articlenote"
+    model = ArticleNote
+    form_class = ArticleNoteForm
+
+    def get_success_url(self):
+
+        if "popup" in self.request.get_full_path():
+            return reverse(
+                "touglates:popup_closer",
+                kwargs={
+                    "pk": self.object.pk,
+                    "app_name": self.model._meta.app_label,
+                    "model_name": self.model.__name__,
+                },
+            )
+        return reverse_lazy("libtekin256:articlenote-update", kwargs={"pk": self.object.pk})
+
+class ArticleNoteUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = "libtekin256.change_articlenote"
+    model = ArticleNote
+    form_class = ArticleNoteForm
+
+    def get_success_url(self):
+        return reverse_lazy("libtekin256:articlenote-detail", kwargs={"pk": self.object.pk})
+
+class ArticleNoteDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = "libtekin256.view_articlenote"
+    model = ArticleNote
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data["labels"] = {'articlenote':get_pretty_labels(ArticleNote)}
+
+        return context_data
+
+class ArticleNoteDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = "libtekin256.delete_articlenote"
+    model = ArticleNote
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data["labels"] = {'articlenote':get_pretty_labels(ArticleNote)}
+
+        return context_data
+
+    def get_success_url(self):
+        return reverse_lazy("libtekin256:articlenote-list", kwargs={"pk": self.object.pk})
+
+class ArticleNoteListView(PermissionRequiredMixin, FilterView):
+    permission_required = "libtekin256.view_articlenote"
+    filterset_class = ArticleNoteFilter
+    filterstore_urlname = "libtekin256:articlenote-filterstore"
+    template_name_suffix = "_list"
+
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data["labels"] = {'articlenote':get_pretty_labels(ArticleNote)}
+
+        context_data["filterstore_retrieve"] = FilterstoreRetrieveForm()
+        context_data["filterstore_save"] = FilterstoreSaveForm()
+        context_data["count"] = self.object_list.count()
 
         return context_data
 

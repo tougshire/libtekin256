@@ -10,6 +10,17 @@
       </div>
     {% endif %}
   {% endif %}
+  {% if perms.libtekin256.view_articlenote %}
+    {% if 'articlenote-' in request.resolver_match.url_name %}
+      <div class="menu-item menu-here">
+        <a href="{% url 'libtekin256:articlenote-list' %}">Notes</a>
+      </div>
+    {% else %}
+      <div class="menu-item">
+        <a href="{% url 'libtekin256:articlenote-list' %}">Notes</a>
+      </div>
+    {% endif %}
+  {% endif %}
 {% if perms.libtekin256.view_mamodel %}
   {% if 'mamodel' in request.resolver_match.url_name %}
   <div class="menu-item menu-here">

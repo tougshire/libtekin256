@@ -265,7 +265,7 @@ class ArticleNoteForm(forms.ModelForm):
             ),
             "summary":forms.TextInput(attrs={"class":"widthlong"}),
             "description":forms.TextInput(attrs={"class":"widthlong"}),
-            "when":forms.DateInput(attrs={"input_type":"datetime-local"})
+            "when":TouglatesDateInput()
         }
     
 

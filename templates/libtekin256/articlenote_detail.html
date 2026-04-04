@@ -1,0 +1,38 @@
+{% extends './_base.html' %}
+
+{% block content %}
+    {% include './articlenote_menu.html' %}
+    <h2>{{ Article  }}</h2>
+    <div class="detail" id="div_detail">
+        {% include 'touglates/detail_field.html' with field=object.articlenote.when  label=labels.articlenote.when %}
+        {% include 'touglates/detail_field.html' with field=object.subject  label=labels.articlenote.subject %}
+        {% include 'touglates/detail_field.html' with field=object.summary  label=labels.articlenote.summary %}
+        {% include 'touglates/detail_field.html' with field=object.description  label=labels.articlenote.description %}
+        {% include 'touglates/detail_field.html' with field=object.article  label=labels.articlenote.article %}
+        {% include 'touglates/detail_field.html' with field=object.is_pinned  label=labels.articlenote.is_pinned %}
+
+        <h2>Articles</h2>
+        {% for articlelink in object.articlelink_set.all %}
+            {% include 'touglates/detail_fields.html' with label="Link" field_1_label=labels.articlelink.name|add:": " field_1=articlelink.name %}
+            {% include 'touglates/detail_fields.html' with field_1_label=labels.articlelink.url|add:": "  field_1="<a href='"|add:articlelink.url|add:"'>"|add:articlelink.url|add:"</a>"|safe %}
+        {% endfor %}
+
+        <h2>Notes</h2>
+        {% for note in object.articlenote_set.all %} 
+            {% include 'touglates/detail_fields.html' with label="Note" field_1=note.when %}
+			{% include 'touglates/detail_fields.html' with label="subject" field_1=note.get_subject %}
+        {% endfor %}
+    </div>
+    {% if copybutton %}
+        <form action="{% url 'libtekin256:article-copy' object.pk %}" method="POST">
+            {% csrf_token %}
+            {% include 'touglates/form_field.html' with field="<button type='submit'>Copy</button>"  label_tag="Confirm Copy" %}            
+        </form>
+    {% endif %}
+    {% include './articlenote_menu.html' %}
+
+{% endblock %}
+{% block bottomscript %}
+{{ block.super }}
+{% endblock %}
+
