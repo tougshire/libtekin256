@@ -208,7 +208,6 @@ class ArticleNote(models.Model):
 
     def save(self, *args, **kwargs):
         if self.subject is not None:
-            self.summary = self.subject.subject_line
             super().save(*args, **kwargs)
             if self.updated_at > self.subject.last_used:
                 self.subject.last_used = self.updated_at
