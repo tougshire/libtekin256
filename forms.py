@@ -249,8 +249,8 @@ class ArticleNoteForm(forms.ModelForm):
         fields = [
             "article",
             "subject",
-            "summary",
             "description",
+            "resolution",
             "when",
             "is_pinned",
         ]
@@ -263,8 +263,7 @@ class ArticleNoteForm(forms.ModelForm):
                 },
                 add_filter_input=True,
             ),
-            "summary":forms.TextInput(attrs={"class":"widthlong"}),
-            "description":forms.TextInput(attrs={"class":"widthlong"}),
+            "resolution":forms.TextInput(attrs={"class":"widthlong"}),
             "when":TouglatesDateInput()
         }
     

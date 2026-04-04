@@ -10,12 +10,12 @@
             {% csrf_token %}
 
 
-						{% include 'touglates/form_field.html' with field=form.article %}
 						{% include 'touglates/form_field.html' with field=form.when %}
+						{% include 'touglates/form_field.html' with field=form.article %}
 						{% include 'touglates/form_field.html' with field=form.subject %}
             {% include 'touglates/form_field.html' with field="Add a new subject if no existing subjects are approprate" %}
-						{% include 'touglates/form_field.html' with field=form.summary %}
 						{% include 'touglates/form_field.html' with field=form.description %}
+						{% include 'touglates/form_field.html' with field=form.resolution %}
 						{% include 'touglates/form_field.html' with field=form.is_pinned %}
 						{% include 'touglates/form_field.html' with field=form.DELETE %}
 

@@ -59,10 +59,10 @@
       <tr>
         <th></th>
         <th>{{ labels.articlenote.when }}</th>
-        <th>{{ labels.articlenote.subject }}</th>
-        <th>{{ labels.articlenote.summary }}</th>
-        <th>{{ labels.articlenote.description }}</th>
         <th>{{ labels.articlenote.article }}</th>
+        <th>{{ labels.articlenote.subject }}</th>
+        <th>{{ labels.articlenote.description }}</th>
+        <th>{{ labels.articlenote.resolution }}</th>
         <th>{{ labels.articlenote.is_pinned }}</th>
 
       </tr>
@@ -70,10 +70,10 @@
         <tr>
           <td><a href="{% url 'libtekin256:articlenote-detail' object.pk %}">view</a></td>
           <td>{{ object.when }}</td>
-          <td>{{ object.subject }}</td>
-          <td>{{ object.summary }}</td>
-          <td>{{ object.description }}</td>
           <td>{{ object.article }}</td>
+          <td>{{ object.subject }}</td>
+          <td>{{ object.description }}</td>
+          <td>{{ object.resolution }}</td>
           <td>{{ object.is_pinned }}</td>
         </tr>
       {% endfor %}

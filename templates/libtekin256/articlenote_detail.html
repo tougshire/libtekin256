@@ -4,11 +4,11 @@
     {% include './articlenote_menu.html' %}
     <h2>{{ Article  }}</h2>
     <div class="detail" id="div_detail">
-        {% include 'touglates/detail_field.html' with field=object.articlenote.when  label=labels.articlenote.when %}
-        {% include 'touglates/detail_field.html' with field=object.subject  label=labels.articlenote.subject %}
-        {% include 'touglates/detail_field.html' with field=object.summary  label=labels.articlenote.summary %}
-        {% include 'touglates/detail_field.html' with field=object.description  label=labels.articlenote.description %}
+        {% include 'touglates/detail_field.html' with field=object.when  label=labels.articlenote.when %}
         {% include 'touglates/detail_field.html' with field=object.article  label=labels.articlenote.article %}
+        {% include 'touglates/detail_field.html' with field=object.subject  label=labels.articlenote.subject %}
+        {% include 'touglates/detail_field.html' with field=object.description  label=labels.articlenote.description %}
+        {% include 'touglates/detail_field.html' with field=object.resolution  label=labels.articlenote.resolution %}
         {% include 'touglates/detail_field.html' with field=object.is_pinned  label=labels.articlenote.is_pinned %}
 
         <h2>Articles</h2>

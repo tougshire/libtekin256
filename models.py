@@ -194,13 +194,13 @@ class ArticleNote(models.Model):
 
     lead_note_limit_choices_to={"lead_note__isnull":True}
 
+    when = models.DateField("date", default=date.today, help_text="The date that the event occured or the action was taken if appliable, or the date that this note was made")
     article = models.ForeignKey(Article, blank=True, null=True, on_delete=models.SET_NULL)
     subject = models.ForeignKey(ArticleNoteSubject, verbose_name="subject", blank=True, null=True, on_delete=models.CASCADE, help_text="The standard subject of this note, if a standard subject is used", related_name="children")
-    summary = models.CharField("summary", max_length=255, blank=True, help_text="A summary - like a subject line but with more detail than the available subjects in the drop down list")
-    description = models.CharField("description", max_length=255, blank=True, help_text="The description of the note, if appropriate")
-    when = models.DateField("date", default=date.today, help_text="The date that the event occured or the action was taken if appliable, or the date that this note was made")
+    description = models.TextField("description/updates", max_length=255, blank=True, help_text="The description, if needed, and updates not including the resolution")
+    resolution = models.CharField("resolution", max_length=255, blank=True, help_text="For problems - a description of the resolution")
+    is_pinned = models.BooleanField("pinned", default=False, help_text="If this note is both current and important (unpin an problem when the problem is revolved) - for examples: if the article is under watch due to problems, has a special condition or feature, is on loan, etc..")
     updated_at = models.DateTimeField("updated_at", auto_now=True, help_text="The date this note was upated.  Used for sorting")
-    is_pinned = models.BooleanField("pinned", default=False, help_text="If this note is both current and important - for examples: if the article is under watch due to problems, has a special condition or feature, is on loan, etc..")
 
     
     def __str__(self):
@@ -215,9 +215,6 @@ class ArticleNote(models.Model):
         else:
             super().save(*args, **kwargs)
             
-    def get_subject(self):
-        return self.subject.subject_line if self.subject is not None else self.summary
-
     class Meta:
         ordering=('-when','-updated_at')
 
