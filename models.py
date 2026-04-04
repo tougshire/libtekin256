@@ -210,8 +210,8 @@ class ArticleNote(models.Model):
         if self.subject is not None:
             self.summary = self.subject.subject_line
             super().save(*args, **kwargs)
-            if self.when > self.subject.last_used:
-                self.subject.last_used = self.when
+            if self.updated_at > self.subject.last_used:
+                self.subject.last_used = self.updated_at
                 self.subject.save()
         else:
             super().save(*args, **kwargs)
@@ -221,6 +221,7 @@ class ArticleNote(models.Model):
 
     class Meta:
         ordering=('-when','-updated_at')
+
 
 class ArticleLink(models.Model):
 
