@@ -103,57 +103,7 @@
 {% endblock %}
 {% block bottomscript %}
 {{ block.super }}
-<script>
-        
-    function getIndexTwin() {
-        var twin = null
-        var mamodelSelectedOptions = document.getElementById("{{ form.mamodel.id_for_label }}").selectedOptions
-        var customFieldIds = {
-            "customfield01":"{{ form.customfield01.id_for_label }}",
-            "customfield02":"{{ form.customfield02.id_for_label }}",
-            "customfield03":"{{ form.customfield03.id_for_label }}",
-            "customfield04":"{{ form.customfield04.id_for_label }}",
-            "customfield05":"{{ form.customfield05.id_for_label }}",
-            "customfield06":"{{ form.customfield06.id_for_label }}",
-            "customfield07":"{{ form.customfield07.id_for_label }}",
-            "customfield08":"{{ form.customfield08.id_for_label }}",
-            "customfield09":"{{ form.customfield09.id_for_label }}",
-            "customfield10":"{{ form.customfield10.id_for_label }}",
-            "customfield11":"{{ form.customfield11.id_for_label }}",
-            "customfield12":"{{ form.customfield12.id_for_label }}",
-            "customfield13":"{{ form.customfield13.id_for_label }}",
-            "customfield14":"{{ form.customfield14.id_for_label }}",
-            "customfield15":"{{ form.customfield15.id_for_label }}",
-            "customfield16":"{{ form.customfield16.id_for_label }}",
-        }
-
-        if("inventory_index_twin" in mamodelSelectedOptions[0].dataset) {
-
-            var twin = document.getElementById(customFieldIds[mamodelSelectedOptions[0].dataset.inventory_index_twin])
-        }
-        return twin
-    }
-    function decorateIndexTwin() {
-        twin = getIndexTwin()
-        console.log(twin)
-        oldTwins = document.querySelectorAll("label[class='indexTwin']")
-        for(twin of oldTwins) {
-            twin.classList.remove("indexTwin")
-        }
-
-        if(twin!=null) {
-            twin.required=true
-            var label = document.querySelector("label[for='" + twin.id + "']")
-            if(label!==null) {
-				label.classList.add("indexTwin")
-			}
-        }
-    }
-    document.getElementById("form_article").addEventListener("change", function(e) {
-        decorateIndexTwin()
-    })
-
-</script>
+<script</script>
 <script>
     var buttons = document.getElementsByClassName("formsetEdit")
     for(var button of buttons) {
@@ -165,7 +115,7 @@
     }
 </script>
 <script>
-	function enabledisablesubjects() {
+	function xx_enabledisablesubjects() {
 		subjects=document.querySelectorAll("select[name$='subject']")
 		for(subject of subjects) {
 			individualsubject=document.getElementById(subject.id.replace("standard", "individual"))
