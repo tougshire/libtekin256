@@ -1,30 +1,41 @@
 from django import forms
 from django.conf import settings
 from django.urls import reverse_lazy
-
-from .models import Role, Article, ArticleLink, ArticleNoteSubject, ArticleSnap, ArticleStatus, ArticleNote, Location, Mamodel, MamodelCategory
+from django.db.models import Count
+from .models import (
+    Role,
+    Article,
+    ArticleLink,
+    ArticleNoteSubject,
+    ArticleSnap,
+    ArticleStatus,
+    ArticleNote,
+    Location,
+    Mamodel,
+    MamodelCategory,
+)
 
 from touglates.widgets import TouglatesDateInput, TouglatesRelatedSelect
 
+
 class RoleForm(forms.ModelForm):
     class Meta:
-        model=Role
-        fields=[
+        model = Role
+        fields = [
             "name",
         ]
 
+
 class LocationForm(forms.ModelForm):
     class Meta:
-        model=Location
-        fields=[
+        model = Location
+        fields = [
             "full_name",
             "abbreviation",
         ]
 
 
-
 class MamodelSelect(TouglatesRelatedSelect):
- 
     def create_option(
         self, name, value, label, selected, index, subindex=None, attrs=None
     ):
@@ -32,36 +43,41 @@ class MamodelSelect(TouglatesRelatedSelect):
             name, value, label, selected, index, subindex, attrs
         )
         if value:
-            option["attrs"]["data-inventory_index_twin"] = value.instance.inventory_index_twin
+            option["attrs"]["data-inventory_index_twin"] = (
+                value.instance.inventory_index_twin
+            )
         return option
 
+
 class ArticleForm(forms.ModelForm):
-    def __init__(self,*args,**kwargs):
+    def __init__(self, *args, **kwargs):
         init = super().__init__(*args, **kwargs)
-        popfields=[]
+        popfields = []
         # relabel custom fieds in accordance with settings
         for field in self.fields:
-            if field[:11]=="customfield":
+            if field[:11] == "customfield":
                 try:
-                    self.fields[field].label=settings.LIBTEKIN["customfields"][field]["label"]
+                    self.fields[field].label = settings.LIBTEKIN["customfields"][field][
+                        "label"
+                    ]
                     try:
-                        self.fields[field].help_text=settings.LIBTEKIN["customfields"][field]["help_text"]
+                        self.fields[field].help_text = settings.LIBTEKIN[
+                            "customfields"
+                        ][field]["help_text"]
                     except KeyError:
                         pass
                 except KeyError:
                     popfields.append(field)
         for field in popfields:
-
             self.fields.pop(field)
-
 
         return init
 
-    required_css_class = 'required'
+    required_css_class = "required"
 
     class Meta:
-        model=Article
-        fields=[
+        model = Article
+        fields = [
             "mamodel",
             "common_name",
             "role",
@@ -88,8 +104,8 @@ class ArticleForm(forms.ModelForm):
             "customfield15",
             "customfield16",
         ]
-        widgets={
-            "mamodel":MamodelSelect(
+        widgets = {
+            "mamodel": MamodelSelect(
                 related_data={
                     "model_name": "Mamodel",
                     "app_name": "libtekin256",
@@ -97,83 +113,85 @@ class ArticleForm(forms.ModelForm):
                 },
                 add_filter_input=True,
             ),
-            "role":TouglatesRelatedSelect(
+            "role": TouglatesRelatedSelect(
                 related_data={
                     "model_name": "Role",
                     "app_name": "libtekin256",
                     "add_url": reverse_lazy("libtekin256:role-popup"),
                 },
             ),
-            "home_location":TouglatesRelatedSelect(
+            "home_location": TouglatesRelatedSelect(
                 related_data={
                     "model_name": "Location",
                     "app_name": "libtekin256",
                     "add_url": reverse_lazy("libtekin256:location-popup"),
                 },
             ),
-            "assignee":TouglatesRelatedSelect(
+            "assignee": TouglatesRelatedSelect(
                 related_data={
                     "model_name": "Entity",
                     "app_name": "libstaff256",
                     "add_url": reverse_lazy("libstaff256:entity-popup"),
                 },
             ),
-            "statusdate":TouglatesDateInput(),
-            "inventorydate":TouglatesDateInput(),
-
+            "statusdate": TouglatesDateInput(),
+            "inventorydate": TouglatesDateInput(),
         }
+
 
 class ArticleSnapForm(forms.ModelForm):
     class Meta:
-        model=ArticleSnap
-        fields=[
-            'article', 
-            'when', 
-            'mamodel', 
-            'common_name', 
-            'role', 
-            'status', 
-            'statusdate', 
-            'inventorydate',
-            'customfield01', 
-            'customfield02',
-            'customfield03',
-            'customfield04',
-            'customfield05',
-            'customfield06',
-            'customfield07',
-            'customfield08',
-            'customfield09',
-            'customfield10',
-            'customfield11',
-            'customfield12',
-            'customfield13',
-            'customfield14',
-            'customfield15',
-            'customfield16',
+        model = ArticleSnap
+        fields = [
+            "article",
+            "when",
+            "mamodel",
+            "common_name",
+            "role",
+            "status",
+            "statusdate",
+            "inventorydate",
+            "customfield01",
+            "customfield02",
+            "customfield03",
+            "customfield04",
+            "customfield05",
+            "customfield06",
+            "customfield07",
+            "customfield08",
+            "customfield09",
+            "customfield10",
+            "customfield11",
+            "customfield12",
+            "customfield13",
+            "customfield14",
+            "customfield15",
+            "customfield16",
         ]
+
 
 class ArticleStatusForm(forms.ModelForm):
     class Meta:
-        model=ArticleStatus
-        fields=[
+        model = ArticleStatus
+        fields = [
             "name",
             "orderpos",
             "show",
         ]
 
+
 class MamodelForm(forms.ModelForm):
     class Meta:
-        model=Mamodel
-        fields=[
+        model = Mamodel
+        fields = [
             "inventory_index_twin",
             "brand",
             "name",
             "number",
             "category",
         ]
-        widgets={
-            'category':TouglatesRelatedSelect(
+        widgets = {
+            "category": TouglatesRelatedSelect(
                 related_data={
                     "model_name": "MamodelCategory",
                     "app_name": "libtekin256",
@@ -182,20 +200,30 @@ class MamodelForm(forms.ModelForm):
                 add_filter_input=True,
             )
         }
-        
+
 
 class MamodelCategoryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-
         init = super().__init__(*args, **kwargs)
-        popfields=[]
+        popfields = []
 
         for field in self.fields:
-            if field[:4]=="hide":
+            if field[:4] == "hide":
                 try:
-                    self.fields[field].label = "Don't use " + settings.LIBTEKIN["customfields"][field.replace("hide","customfield")]["label"]
+                    self.fields[field].label = (
+                        "Don't use "
+                        + settings.LIBTEKIN["customfields"][
+                            field.replace("hide", "customfield")
+                        ]["label"]
+                    )
                     try:
-                        self.fields[field].help_text = "Don't use " + settings.LIBTEKIN["customfields"][field.replace("hide","customfield")]["label"] + " for articles of this category type "
+                        self.fields[field].help_text = (
+                            "Don't use "
+                            + settings.LIBTEKIN["customfields"][
+                                field.replace("hide", "customfield")
+                            ]["label"]
+                            + " for articles of this category type "
+                        )
                     except KeyError:
                         pass
                 except KeyError:
@@ -225,27 +253,29 @@ class MamodelCategoryForm(forms.ModelForm):
             "hide16",
         ]
 
-class ArticleLinkForm(forms.ModelForm):
 
+class ArticleLinkForm(forms.ModelForm):
     class Meta:
         model = ArticleLink
-        fields = [
-            "article",
-            "name",
-            "url"
-        ]
+        fields = ["article", "name", "url"]
+
 
 class ArticleNoteSubjectForm(forms.ModelForm):
     class Meta:
         model = ArticleNoteSubject
-        fields = [
-            "subject_line"
-        ]
+        fields = ["subject_line"]
+
 
 class ArticleNoteForm(forms.ModelForm):
-    
     class Meta:
         model = ArticleNote
+        subject = forms.ModelChoiceField(
+            queryset=ArticleNoteSubject.objects.all()
+            .annotate(usage=Count("articlenotes"))
+            .order_by(
+                "-usage",
+            )
+        )
         fields = [
             "article",
             "subject",
@@ -255,7 +285,7 @@ class ArticleNoteForm(forms.ModelForm):
             "is_pinned",
         ]
         widgets = {
-            "subject":TouglatesRelatedSelect(
+            "subject": TouglatesRelatedSelect(
                 related_data={
                     "model_name": "ArticleNoteSubject",
                     "app_name": "libtekin256",
@@ -263,17 +293,6 @@ class ArticleNoteForm(forms.ModelForm):
                 },
                 add_filter_input=True,
             ),
-            "resolution":forms.TextInput(attrs={"class":"widthlong"}),
-            "when":TouglatesDateInput()
+            "resolution": forms.TextInput(attrs={"class": "widthlong"}),
+            "when": TouglatesDateInput(),
         }
-    
-
-
-
-
-
-
-
-
-
-

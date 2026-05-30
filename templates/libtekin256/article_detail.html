@@ -37,11 +37,42 @@
         {% endfor %}
 
         <h2>Notes</h2>
-        {% for note in object.articlenote_set.all %} 
-            {% include 'touglates/detail_fields.html' with label="Note" field_1=note.when %}
+        {% for note in object.articlenote_set.all %}
+        <div class="articlenotediv" data-pinned="{{ note.is_pinned|yesno:"true,false" }}">
+            {% include 'touglates/detail_fields.html' with label="Note" field_1=note.when field_2=note.is_pinned|yesno:"Pinned,"  %}
 			      {% include 'touglates/detail_fields.html' with label="subject" field_1=note.subject %}
 			      {% include 'touglates/detail_fields.html' with label="description" field_1=note.description %}
+          </div>
         {% endfor %}
+			  {% include 'touglates/detail_fields.html' with label="" field_1='<button id="btn_toggleunpinned" class="light_background">hide unpinned</button>' %}
+        <script>
+          function showHideUnpinned() {
+            let btn_toggleunpiined = document.getElementById("btn_toggleunpinned")
+            let noteDivs = document.getElementsByClassName("articlenotediv")
+            if(noteDivs.length) {
+              if(noteDivs[0].style.display == "none") {
+                for (noteDiv of noteDivs) {
+                  noteDiv.style.display =  ""
+                }
+                btn_toggleunpiined.innerHTML = "hide unpinned"
+              } else {
+                for (noteDiv of noteDivs) {
+                  noteDiv.style.display =  "none"
+                }
+                btn_toggleunpiined.innerHTML = "show all notes"
+              }
+            } else {
+              btn_toggleunpiined.remove()
+            }
+          }
+        </script>
+        <script>
+          document.getElementById("btn_toggleunpinned").addEventListener("click", function(e) {
+            e.preventDefault()
+            showHideUnpinned()
+          })
+          showHideUnpinned()
+        </script>
     </div>
     {% if copybutton %}
         <form action="{% url 'libtekin256:article-copy' object.pk %}" method="POST">
