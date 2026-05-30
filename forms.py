@@ -1,7 +1,8 @@
 from django import forms
+from django.db.models.lookups import Exact
 from django.conf import settings
 from django.urls import reverse_lazy
-from django.db.models import Count
+from django.db.models import BooleanField, Count, ExpressionWrapper, Max, F
 from .models import (
     Role,
     Article,
@@ -272,7 +273,9 @@ class ArticleNoteForm(forms.ModelForm):
         subject = forms.ModelChoiceField(
             queryset=ArticleNoteSubject.objects.all()
             .annotate(usage=Count("articlenotes"))
+            .annotate(is_most_recent=Exact(F("last_used"), Max("last_used")))
             .order_by(
+                "-is_most_recent",
                 "-usage",
             )
         )

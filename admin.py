@@ -11,6 +11,11 @@ from .models import (
     MamodelCategory,
 )
 
+
+class ArticleNoteSubjectAdmin(admin.ModelAdmin):
+    list_display = ("subject_line", "last_used")
+
+
 admin.site.register(Article)
 
 admin.site.register(ArticleSnap)
@@ -25,4 +30,4 @@ admin.site.register(MamodelCategory)
 
 admin.site.register(ArticleNote)
 
-admin.site.register(ArticleNoteSubject)
+admin.site.register(ArticleNoteSubject, ArticleNoteSubjectAdmin)
